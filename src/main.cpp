@@ -3,7 +3,7 @@
 #include<algorithm>
 #include<math.h>
 
-class Chess
+/*class Chess
 {
 	public :
     int Initialize(int board);
@@ -46,12 +46,11 @@ class Chess
     int CheckCamelMove();
     int CheckKingMove();
     int chessboard[8][8] = Initialize(chessboard);
-};
+};*/
 
 namespace rpi
 {
 	int Move();
-	int SetBoardStatus();
 	int FeedChanges();
 	int CameraStatus();
 	int displayscore();
