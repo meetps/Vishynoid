@@ -37,7 +37,9 @@ class Position
 
 };
 
-
+bool isValid(int x,int y){
+	return (x>=0 && x<=7 && y>=0 && y<=7);
+}
 bool areDiagonal(Position p1, Position p2)
 {
    if( std::abs(p1.x - p2.x) == std::abs(p1.y - p2.y) )
