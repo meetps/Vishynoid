@@ -1,7 +1,8 @@
 #include<iostream>
-#include<fstream>
-#include<algorithm>
-#include<math.h>
+/*#include<fstream>
+#include<algorithm>*/
+
+#include "include/*.hpp"
 
 /*class Chess
 {
