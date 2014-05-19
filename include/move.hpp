@@ -6,6 +6,11 @@ class Move{
 	Position initial;
 	Position final;
 	bool isValid;
+	Move(){
+		initial=Position();
+		final=Position();
+		isValid=true;
+	}
 	Move(Position p1, Position p2){
 		initial=p1;
 		final=p2;

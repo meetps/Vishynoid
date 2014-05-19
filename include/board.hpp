@@ -1,7 +1,9 @@
 #ifndef board
 #define board
 #include<list>
-enum playerColor={white,black}
+#include "position.hpp"
+#include "move.hpp"
+#include "piece.hpp"
 class Board{
 	public:
 	list<Piece> whitePieces;
