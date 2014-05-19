@@ -269,4 +269,52 @@ class Queen:public Piece{
 	}
 };	
 
+class Knight : public Piece{
+	Knight(Position p, int pc):Piece(p,pc){
+		type=knight;
+		pieceValue=knightValue;
+	}
+	list<Move> getMoves(const int board[8][8]){
+		list<Move> ret;
+		const int x=pos.x;
+		const int y=pos.y;
+		if(isValid(x-1,y+2) && ( board[x-1][y+2]==0 || board[x-1][y+2]== -color)  )  
+			ret.push_front(Move(pos, Position(x-1,y+2) ));
+		if(isValid(x+1,y+2) && (board[x+1][y+2]==0 || board[x+1][y+2]== -color)) 
+			ret.push_front(Move(pos, Position(x+1,y+2)));
+		if(isValid(x+2,y+1) && (board[x+2][y+1]==0 || board[x+2][y+1]== -color )) 
+			ret.push_front(Move(pos, Position(x+2,y+1)));
+		if(isValid(x-2,y+1) && ( board[x-2][y+1]==0 || board[x-2][y+1]== -color )) 
+			ret.push_front(Move(pos, Position(x-2,y+1)));
+		if(isValid(x-1,y-2) && ( board[x-1][y-2]==0 || board[x-1][y-2]== -color )) 
+			ret.push_front(Move(pos, Position(x-1,y-2)));
+		if(isValid(x+1,y-2) && (board[x+1][y-2]==0 || board[x+1][y-2]== -color ))  
+			ret.push_front(Move(pos, Position(x+1,y-2)));
+		if(isValid(x+2,y-1) && ( board[x+2][y-1]==0 || board[x+2][y-1]== -color )) 
+			ret.push_front(Move(pos, Position(x+2,y-1)));
+		if(isValid(x-2,y-1) &&  ( board[x-2][y-1]==0 || board[x-2][y-1]== -color )) 
+			ret.push_front(Move(pos, Position(x-2,y-1)));						 
+		return ret;
+	}
+};
+class King:public Piece{
+		King(Position p, int pc):Piece(p,pc){
+				type=king;
+				pieceValue=kingValue;
+		}
+		list<Move> getMoves(const int board[8][8]){
+			list<Move> ret;
+			const int x=pos.x;
+			const int y=pos.y;
+			for(int i=-1;i<=1;i++){
+				for(int j=-1;j<=1;j++){
+					if(i==0 && j==0)
+						continue;
+					if(isValid(x+i,y+j) && (board[x+i][y+j]==(-color) || board[x+i][y+j]==0))
+						ret.push_front(Move(pos, Position(x+i,y+j)));
+				}
+			}
+		}
+};
+
 #endif
