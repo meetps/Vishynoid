@@ -1,4 +1,4 @@
-#ifndef MOVE
+#ifndef Move
 #define MOVE
 #include "position.hpp"
 class Move{
