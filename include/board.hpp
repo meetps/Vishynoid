@@ -45,28 +45,58 @@ class Board{
 
     void display()
     {  
-    	char board[8][8];
-    	for(int i =0;i < 8;i++)
-    		for(int j =0; j<8 ;j++)
+    	string board[9][9];
+    	for(int i =0;i < 9;i++)
     		{
-    			board[i][j] = " ";
-    		}
+    			for(int j =0; j<9 ;j++)
+    				{
+    					board[i][j] = " ";
+    				}
+    		}		
     	for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
         {
 			Piece temp=*w;
 			switch(temp.type)
-			   case:
-			board[temp.pos.x][temp.pos.y]=
+			   case:pawn
+			   board[temp.pos.x][temp.pos.y]="\u2569";
+			   case:knight 
+			   board[temp.pos.x][temp.pos.y]="\u2568";
+			   case:rook
+			   board[temp.pos.x][temp.pos.y]="\u2566";
+			   case:bishop
+			   board[temp.pos.x][temp.pos.y]="\u2567";
+			   case:queen
+			   board[temp.pos.x][temp.pos.y]="\u2565";
+			   case:king
+			   board[temp.pos.x][temp.pos.y]="\u2564";
+
 		}
         for(list<Piece>::iterator w=blackPieces.begin(); w!=blackPieces.end(); w++)
         {
 			Piece temp=*w;
-			mobilityScore -= temp.getMoves().size();
-			materialScore -= temp.pieceValue;	
+			switch(temp.type)
+			   case:pawn
+			   board[temp.pos.x][temp.pos.y]="\u2569";
+			   case:knight 
+			   board[temp.pos.x][temp.pos.y]="\u2568";
+			   case:rook
+			   board[temp.pos.x][temp.pos.y]="\u2566";
+			   case:bishop
+			   board[temp.pos.x][temp.pos.y]="\u2567";
+			   case:queen
+			   board[temp.pos.x][temp.pos.y]="\u2565";
+			   case:king
+			   board[temp.pos.x][temp.pos.y]="\u2564";
 		}	
-
-
-    } 	
+		for(int j =1;j < 9;j++)
+    		{
+    			for(int i =1; i<8 ;i++)
+    				{
+    					cout << board[i][j] << " ";
+    				}
+    			cout << endl;	
+    		}
+    }
 				
 	list<Move> getMoves(){
 		list<Move> ret;
