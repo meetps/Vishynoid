@@ -16,15 +16,23 @@ class Piece{
 	int color;	
 	bool alive;
 	int myBoard[8][8];
+	bool operator == (Piece p2){
+		if(type == p2.type && pos == p2.pos && color == p2.color)
+			return true;
+		return false;
+	}
 	Piece(){
 		pos=Position();
+		type=empty;
 		alive=false;
 		color=0;
 	}
-	Piece(Position p, int pc){
+	Piece(Position p, int pc, pieceType t){
 		pos=p;
 		alive=true;
 		color=pc;
+		type=t;
+		// for pieceValue implement:
 	}
 	void setBoard(int arr[][8]){
 		for(int i=0; i<=7; i++)

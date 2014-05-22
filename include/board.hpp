@@ -20,8 +20,28 @@ class Board{
 		bestMove=optimalMove();
 	}
 	Board applyMove(Move m){
-		return *this;
-	}	
+		Piece p1 = pieceAt(m.initial);
+		int c=p1.color;
+		Piece p2 = pieceAt(m.final);
+		list<Piece> w2 = whitePieces;
+		list<Piece> b2 = blackPieces;
+		if(c==1){
+			w2.remove(p1);
+			w2.push_back(Piece(m.final, 1, p1.type));
+			if(p2.type !=empty){
+				b2.remove(p2);
+			}
+		}
+		if(c==-1){
+			b2.remove(p1);
+			b2.push_back(Piece(m.final, -1, p1.type));
+			if(p2.type!=empty){
+				w2.remove(p2);
+			}
+		}
+		return Board(w2, b2, -color);
+	}
+				
 	list<Move> getMoves(){
 		list<Move> ret;
 		

@@ -13,17 +13,6 @@ class Board{
 	Move optimalMove(){
 		return Move(Position(), Position());
 	}
-	/*int[8][8] getArray(){
-		int arr[8][8];
-		for(int i=0; i<=7; i++)
-			for(int j=0; j<=7; j++)
-				arr[i][j]=0;
-		for(list::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
-			arr[(*w).pos.x][(*w).pos.y]=1;
-		for(list::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++)
-			arr[(*b).pos.x][(*b).pos.y]=-1;
-		return arr;
-	}*/
 	Board(list<Piece> white, list<Piece> black, int c){
 		whitePieces=white;
 		blackPieces=black;
@@ -31,8 +20,28 @@ class Board{
 		bestMove=optimalMove();
 	}
 	Board applyMove(Move m){
-		return *this;
-	}	
+		Piece p1 = pieceAt(m.initial);
+		int c=p1.color;
+		Piece p2 = pieceAt(m.final);
+		list<Piece> w2 = whitePieces;
+		list<Piece> b2 = blackPieces;
+		if(c==1){
+			w2.remove(p1);
+			w2.push_back(Piece(m.final, 1, p1.type));
+			if(p2.type !=empty){
+				b2.remove(p2);
+			}
+		}
+		if(c==-1){
+			b2.remove(p1);
+			b2.push_back(Piece(m.final, -1, p1.type));
+			if(p2.type!=empty){
+				w2.remove(p2);
+			}
+		}
+		return Board(w2, b2, color);
+	}
+				
 	list<Move> getMoves(){
 		list<Move> ret;
 		
