@@ -76,17 +76,17 @@ class Board{
 			Piece temp=*w;
 			switch(temp.type)
 			   case:pawn
-			   board[temp.pos.x][temp.pos.y]="\u2569";
+			   board[temp.pos.x][temp.pos.y]="\u256f";
 			   case:knight 
-			   board[temp.pos.x][temp.pos.y]="\u2568";
+			   board[temp.pos.x][temp.pos.y]="\u256e";
 			   case:rook
-			   board[temp.pos.x][temp.pos.y]="\u2566";
+			   board[temp.pos.x][temp.pos.y]="\u256c";
 			   case:bishop
-			   board[temp.pos.x][temp.pos.y]="\u2567";
+			   board[temp.pos.x][temp.pos.y]="\u256d";
 			   case:queen
-			   board[temp.pos.x][temp.pos.y]="\u2565";
+			   board[temp.pos.x][temp.pos.y]="\u256b";
 			   case:king
-			   board[temp.pos.x][temp.pos.y]="\u2564";
+			   board[temp.pos.x][temp.pos.y]="\u256a";
 		}	
 		for(int j =1;j < 9;j++)
     		{
