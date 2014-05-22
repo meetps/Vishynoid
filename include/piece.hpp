@@ -26,7 +26,7 @@ class Piece{
 		color=pc;
 	}
 	
-	list<Move> knightMoves(const int board[8][8]){
+	/*list<Move> knightMoves(const int board[8][8]){
 		list<Move> ret;
 		if (!alive)
 			return ret;
@@ -220,15 +220,15 @@ class Piece{
 	list<Move> emptyMoves(const int board[8][8]){
 		list<Move> ret;
 		return ret;
-	}
-	list<Move> pawnMoves(const int board[8][8]){
+	}*/
+	list<Move> pawnMoves(const int board[][8]){
 		list<Move> ret;
 		if (!alive)
 			return ret;
 		int x=pos.x;
 		int y=pos.y;
 		int change= color==1 ? 1 : -1;
-		if(y!=7 && board[x][y+change]==0) //one step ahead
+		if((y!=7) && (board[x][(y+change)])==0) //one step ahead
 			ret.push_front(Move(pos, Position(x,y+change))); 
 		if((y==1 && color== 1 || y==6 && color==-1) && board[x][y+2*change]==0)//two steps ahead
 			ret.push_front(Move(pos, Position(x, y+2*change)));
@@ -239,7 +239,7 @@ class Piece{
 		return ret;
 	}
 	
-	list<Move> rookMoves(const int board[8][8]){
+	/*list<Move> rookMoves(const int board[8][8]){
 		list<Move> ret;
 		if (!alive)
 			return ret;
@@ -291,17 +291,18 @@ class Piece{
 			}
 		}
 		return ret;
-	}
+	}*/
+
 	list<Move> getMoves(const int board[8][8]){
 		list<Move> ret;
 		if(!alive)
 			return ret;
 		switch(type){
-			case empty: return emptyMoves(board);
-				break;
+			/*case empty: return emptyMoves(board);
+				break;*/
 			case pawn: return pawnMoves(board);
 				break;
-			case bishop: return bishopMoves(board);
+			/*case bishop: return bishopMoves(board);
 				break;
 			case rook: return rookMoves(board);
 				break;
@@ -310,7 +311,7 @@ class Piece{
 			case king: return kingMoves(board);
 				break;
 			case queen: return queenMoves(board);
-				break;
+				break;*/
 		}
 	}
 };
