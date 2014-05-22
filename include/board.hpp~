@@ -4,25 +4,72 @@
 #include "position.hpp"
 #include "move.hpp"
 #include "piece.hpp"
-enum playerColor={white,black}
 class Board{
 	public:
 	list<Piece> whitePieces;
 	list<Piece> blackPieces;
-	playerColor turn;
-	Board applyMove(Move m){
-	}
+	int color;
+	Move bestMove;
 	Move optimalMove(){
+		return Move(Position(), Position());
 	}
+	/*int[8][8] getArray(){
+		int arr[8][8];
+		for(int i=0; i<=7; i++)
+			for(int j=0; j<=7; j++)
+				arr[i][j]=0;
+		for(list::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
+			arr[(*w).pos.x][(*w).pos.y]=1;
+		for(list::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++)
+			arr[(*b).pos.x][(*b).pos.y]=-1;
+		return arr;
+	}*/
+	Board(list<Piece> white, list<Piece> black, int c){
+		whitePieces=white;
+		blackPieces=black;
+		color=c;
+		bestMove=optimalMove();
+	}
+	Board applyMove(Move m){
+		return *this;
+	}	
 	list<Move> getMoves(){
-	}
-	bool checkMove(Move m){
-	}
+		list<Move> ret;
+		
+		int arr[8][8];
+		for(int i=0; i<=7; i++)
+			for(int j=0; j<=7; j++)
+				arr[i][j]=0;
+		for(list::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
+			arr[(*w).pos.x][(*w).pos.y]=1;
+		for(list::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++)
+			arr[(*b).pos.x][(*b).pos.y]=-1;
+		for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++){
+			list<Move> wMoves= (*w).getMoves(arr);
+			ret.splice(ret.end(),wMoves);
+		}
+		
+		
+		
+		
+		for(list<Piece>::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++){
+			list<Move> bMoves= (*b).getMoves(arr);
+			ret.splice(ret.end(),bMoves);
+		}
+		return ret;
+	}		
 	int getBoardValue(){
+		return 0;
 	}
-	int[][] getArray(){
+	
+	Piece pieceAt(const Position p){
+		for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
+			if((*w).pos == p)
+				return *w;
+		for(list<Piece>::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++)
+			if((*b).pos == p)
+				return *b;
+		return Piece();
 	}
-	const Piece pieceAt(const Position p){
-	}
-}
+};
 #endif
