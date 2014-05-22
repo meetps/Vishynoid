@@ -70,8 +70,29 @@ class Board{
 		}
 		return ret;
 	}		
-	int getBoardValue(){
-		return 0;
+	
+	float getBoardValue(){
+        float materialScore = 0;
+        float mobilityScore = 0;
+
+        for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
+        {
+			Piece temp=*w;
+			mobilityScore += temp.getMoves().size();
+			materialScore += temp.pieceValue;	
+		}
+        for(list<Piece>::iterator w=blackPieces.begin(); w!=blackPieces.end(); w++)
+        {
+			Piece temp=*w;
+			mobilityScore -= temp.getMoves().size();
+			materialScore -= temp.pieceValue;	
+		}
+		if(color == -1)
+        {
+        	materialScore = - materialScore;
+        	mobilityScore = - mobilityScore;
+        }
+		return materialScore + mobilityScore*0.1 ;
 	}
 	
 	Piece pieceAt(const Position p){
