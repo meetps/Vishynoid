@@ -13,17 +13,6 @@ class Board{
 	Move optimalMove(){
 		return Move(Position(), Position());
 	}
-	/*int[8][8] getArray(){
-		int arr[8][8];
-		for(int i=0; i<=7; i++)
-			for(int j=0; j<=7; j++)
-				arr[i][j]=0;
-		for(list::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
-			arr[(*w).pos.x][(*w).pos.y]=1;
-		for(list::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++)
-			arr[(*b).pos.x][(*b).pos.y]=-1;
-		return arr;
-	}*/
 	Board(list<Piece> white, list<Piece> black, int c){
 		whitePieces=white;
 		blackPieces=black;
@@ -44,16 +33,19 @@ class Board{
 			arr[(*w).pos.x][(*w).pos.y]=1;
 		for(list<Piece>::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++)
 			arr[(*b).pos.x][(*b).pos.y]=-1;
+			
+			
+			
 		for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++){
-			list<Move> wMoves= (*w).getMoves(arr);
+			Piece temp=*w;
+			temp.setBoard(arr);
+			list<Move> wMoves= temp.getMoves();
 			ret.splice(ret.end(),wMoves);
 		}
-		
-		
-		
-		
 		for(list<Piece>::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++){
-			list<Move> bMoves= (*b).getMoves(arr);
+			Piece temp=*b;
+			temp.setBoard(arr);
+			list<Move> bMoves= temp.getMoves();
 			ret.splice(ret.end(),bMoves);
 		}
 		return ret;

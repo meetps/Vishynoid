@@ -15,6 +15,7 @@ class Piece{
 	Position pos;
 	int color;	
 	bool alive;
+	int myBoard[8][8];
 	Piece(){
 		pos=Position();
 		alive=false;
@@ -25,33 +26,37 @@ class Piece{
 		alive=true;
 		color=pc;
 	}
-	
-	/*list<Move> knightMoves(const int board[8][8]){
+	void setBoard(int arr[][8]){
+		for(int i=0; i<=7; i++)
+			for(int j=0; j<=7; j++)
+				myBoard[i][j]=arr[i][j];
+	}
+	list<Move> knightMoves(){
 		list<Move> ret;
 		if (!alive)
 			return ret;
 		
 		const int x=pos.x;
 		const int y=pos.y;
-		if(isValid(x-1,y+2) && ( board[x-1][y+2]==0 || board[x-1][y+2]== -color)  )  
+		if(isValid(x-1,y+2) && ( myBoard[x-1][y+2]==0 || myBoard[x-1][y+2]== -color)  )  
 			ret.push_front(Move(pos, Position(x-1,y+2) ));
-		if(isValid(x+1,y+2) && (board[x+1][y+2]==0 || board[x+1][y+2]== -color)) 
+		if(isValid(x+1,y+2) && (myBoard[x+1][y+2]==0 || myBoard[x+1][y+2]== -color)) 
 			ret.push_front(Move(pos, Position(x+1,y+2)));
-		if(isValid(x+2,y+1) && (board[x+2][y+1]==0 || board[x+2][y+1]== -color )) 
+		if(isValid(x+2,y+1) && (myBoard[x+2][y+1]==0 || myBoard[x+2][y+1]== -color )) 
 			ret.push_front(Move(pos, Position(x+2,y+1)));
-		if(isValid(x-2,y+1) && ( board[x-2][y+1]==0 || board[x-2][y+1]== -color )) 
+		if(isValid(x-2,y+1) && ( myBoard[x-2][y+1]==0 || myBoard[x-2][y+1]== -color )) 
 			ret.push_front(Move(pos, Position(x-2,y+1)));
-		if(isValid(x-1,y-2) && ( board[x-1][y-2]==0 || board[x-1][y-2]== -color )) 
+		if(isValid(x-1,y-2) && ( myBoard[x-1][y-2]==0 || myBoard[x-1][y-2]== -color )) 
 			ret.push_front(Move(pos, Position(x-1,y-2)));
-		if(isValid(x+1,y-2) && (board[x+1][y-2]==0 || board[x+1][y-2]== -color ))  
+		if(isValid(x+1,y-2) && (myBoard[x+1][y-2]==0 || myBoard[x+1][y-2]== -color ))  
 			ret.push_front(Move(pos, Position(x+1,y-2)));
-		if(isValid(x+2,y-1) && ( board[x+2][y-1]==0 || board[x+2][y-1]== -color )) 
+		if(isValid(x+2,y-1) && ( myBoard[x+2][y-1]==0 || myBoard[x+2][y-1]== -color )) 
 			ret.push_front(Move(pos, Position(x+2,y-1)));
-		if(isValid(x-2,y-1) &&  ( board[x-2][y-1]==0 || board[x-2][y-1]== -color )) 
+		if(isValid(x-2,y-1) &&  ( myBoard[x-2][y-1]==0 || myBoard[x-2][y-1]== -color )) 
 			ret.push_front(Move(pos, Position(x-2,y-1)));						 
 		return ret;
 	}
-	list<Move> kingMoves(const int board[8][8]){
+	list<Move> kingMoves(){
 			list<Move> ret;
 			if (!alive)
 			return ret;
@@ -62,12 +67,12 @@ class Piece{
 				for(int j=-1;j<=1;j++){
 					if(i==0 && j==0)
 						continue;
-					if(isValid(x+i,y+j) && (board[x+i][y+j]==(-color) || board[x+i][y+j]==0))
+					if(isValid(x+i,y+j) && (myBoard[x+i][y+j]==(-color) || myBoard[x+i][y+j]==0))
 						ret.push_front(Move(pos, Position(x+i,y+j)));
 				}
 			}
 		}
-	list<Move> queenMoves(const int board[8][8]){
+	list<Move> queenMoves(){
 		list<Move> ret;
 		if (!alive)
 			return ret;
@@ -76,95 +81,95 @@ class Piece{
 		const int y=pos.y;
 		//up
 		for(int otherx=x, othery=y+1; othery<=7;othery++){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//down
 		for(int otherx=x, othery=y-1; othery>=0;othery--){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//right
 		for(int otherx=x+1, othery=y; otherx<=7;otherx++){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//left
 		for(int otherx=x-1, othery=y; otherx>=0;otherx--){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//upright
 		for(int otherx=x+1, othery=y+1; otherx<=7 && othery<=7;otherx++,othery++){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//downright
 		for(int otherx=x+1, othery=y-1; otherx>=0 && othery<=7;otherx++,othery--){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//upleft
 		for(int otherx=x-1, othery=y+1; otherx>=0 && othery<=7;otherx--,othery++){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//downleft
 		for(int otherx=x-1, othery=y-1; otherx>=0 && othery>=0;otherx--,othery--){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		return ret;
 	}
-	list<Move> bishopMoves(const int board[8][8]){
+	list<Move> bishopMoves(){
 		list<Move> ret;
 		if (!alive)
 			return ret;
@@ -173,73 +178,73 @@ class Piece{
 		const int y=pos.y;
 		//upright
 		for(int otherx=x+1, othery=y+1; otherx<=7 && othery<=7;otherx++,othery++){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//downright
 		for(int otherx=x+1, othery=y-1; otherx>=0 && othery<=7;otherx++,othery--){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//upleft
 		for(int otherx=x-1, othery=y+1; otherx>=0 && othery<=7;otherx--,othery++){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//downleft
 		for(int otherx=x-1, othery=y-1; otherx>=0 && othery>=0;otherx--,othery--){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		return ret;
 	}
-	list<Move> emptyMoves(const int board[8][8]){
+	list<Move> emptyMoves(){
 		list<Move> ret;
 		return ret;
-	}*/
-	list<Move> pawnMoves(const int board[][8]){
+	}
+	list<Move> pawnMoves(){
 		list<Move> ret;
 		if (!alive)
 			return ret;
 		int x=pos.x;
 		int y=pos.y;
 		int change= color==1 ? 1 : -1;
-		if((y!=7) && (board[x][(y+change)])==0) //one step ahead
+		if((y!=7) && (myBoard[x][(y+change)])==0) //one step ahead
 			ret.push_front(Move(pos, Position(x,y+change))); 
-		if((y==1 && color== 1 || y==6 && color==-1) && board[x][y+2*change]==0)//two steps ahead
+		if((y==1 && color== 1 || y==6 && color==-1) && myBoard[x][y+2*change]==0)//two steps ahead
 			ret.push_front(Move(pos, Position(x, y+2*change)));
-		if(x!=7 && board[x+1][y+change]== (-color))//one step ahead, and one to the right
+		if(x!=7 && myBoard[x+1][y+change]== (-color))//one step ahead, and one to the right
 			ret.push_front(Move(pos, Position(x+1,y+change)));
-		if(x!=0 && board[x-1][y+change]== (-color))//one step ahead and one to the left
+		if(x!=0 && myBoard[x-1][y+change]== (-color))//one step ahead and one to the left
 			ret.push_front(Move(pos, Position(x-1, y+change)));
 		return ret;
 	}
 	
-	/*list<Move> rookMoves(const int board[8][8]){
+	list<Move> rookMoves(){
 		list<Move> ret;
 		if (!alive)
 			return ret;
@@ -248,70 +253,71 @@ class Piece{
 		const int y=pos.y;
 		//up
 		for(int otherx=x, othery=y+1; othery<=7;othery++){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//down
 		for(int otherx=x, othery=y-1; othery>=0;othery--){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//right
 		for(int otherx=x+1, othery=y; otherx<=7;otherx++){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		//left
 		for(int otherx=x-1, othery=y; otherx>=0;otherx--){
-			if(board[otherx][othery]==0)
+			if(myBoard[otherx][othery]==0)
 				ret.push_front(Move(pos, Position(otherx, othery)));
-			if(board[otherx][othery]==color)
+			if(myBoard[otherx][othery]==color)
 				break;
-			if(board[otherx][othery]==(-color)){
+			if(myBoard[otherx][othery]==(-color)){
 				ret.push_front(Move(pos, Position(otherx,othery)));
 				break;
 			}
 		}
 		return ret;
-	}*/
+	}
 
-	list<Move> getMoves(const int board[8][8]){
+	list<Move> getMoves(){
+		//myBoard=board;
 		list<Move> ret;
 		if(!alive)
 			return ret;
 		switch(type){
-			/*case empty: return emptyMoves(board);
-				break;*/
-			case pawn: return pawnMoves(board);
+			case empty: return emptyMoves();
 				break;
-			/*case bishop: return bishopMoves(board);
+			case pawn: return pawnMoves();
 				break;
-			case rook: return rookMoves(board);
+			case bishop: return bishopMoves();
 				break;
-			case knight: return knightMoves(board);
+			case rook: return rookMoves();
 				break;
-			case king: return kingMoves(board);
+			case knight: return knightMoves();
 				break;
-			case queen: return queenMoves(board);
-				break;*/
+			case king: return kingMoves();
+				break;
+			case queen: return queenMoves();
+				break;
 		}
 	}
 };
