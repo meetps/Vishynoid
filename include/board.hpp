@@ -32,7 +32,8 @@ class Board{
 				b2.remove(p2);
 			}
 		}
-		if(c==-1){
+		if(c==-1)
+		{
 			b2.remove(p1);
 			b2.push_back(Piece(m.final, -1, p1.type));
 			if(p2.type!=empty){
@@ -41,6 +42,31 @@ class Board{
 		}
 		return Board(w2, b2, -color);
 	}
+
+    void display()
+    {  
+    	char board[8][8];
+    	for(int i =0;i < 8;i++)
+    		for(int j =0; j<8 ;j++)
+    		{
+    			board[i][j] = " ";
+    		}
+    	for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
+        {
+			Piece temp=*w;
+			switch(temp.type)
+			   case:
+			board[temp.pos.x][temp.pos.y]=
+		}
+        for(list<Piece>::iterator w=blackPieces.begin(); w!=blackPieces.end(); w++)
+        {
+			Piece temp=*w;
+			mobilityScore -= temp.getMoves().size();
+			materialScore -= temp.pieceValue;	
+		}	
+
+
+    } 	
 				
 	list<Move> getMoves(){
 		list<Move> ret;
