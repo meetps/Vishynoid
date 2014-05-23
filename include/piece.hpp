@@ -33,6 +33,23 @@ class Piece{
 		color=pc;
 		type=t;
 		// for pieceValue implement:
+		switch(type){
+			case empty: pieceValue=0;
+				break;
+			case pawn: pieceValue=pawnValue;
+				break;
+			case rook: pieceValue=rookValue;
+				break;
+			case knight: pieceValue=knightValue;
+				break;
+			case king: pieceValue = kingValue;
+				break;
+			case queen: pieceValue = queenValue;
+				break;
+			case bishop: pieceValue = bishopValue;
+				break;
+		}
+	
 	}
 	void setBoard(int arr[][8]){
 		for(int i=0; i<=7; i++)

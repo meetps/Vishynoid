@@ -43,12 +43,12 @@ class Board{
 
     void display()
 	{  
-    	string board[8][8]; 
-    	for(int i =0;i < 7;i++)
+    	string wtf[8][8]; 
+    	for(int i =0;i < 8;i++)
     		{
-    			for(int j =0; j<7 ;j++)
+    			for(int j =0; j<8 ;j++)
     				{
-    					board[i][j] = " ";
+    					wtf[i][j] = " ";
     				}
     		}		
     	for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
@@ -56,22 +56,22 @@ class Board{
 			Piece temp=*w;
 			switch(temp.type){
 			   case pawn:
-			  	 board[temp.pos.x][temp.pos.y]="\u2569";
+			  	 wtf[temp.pos.x][temp.pos.y]="\u2569";
 			  	 break;
 			   case knight: 
-			   	board[temp.pos.x][temp.pos.y]="\u2568";
+			   	wtf[temp.pos.x][temp.pos.y]="\u2568";
 			   	break;
 			   case rook:
-			   board[temp.pos.x][temp.pos.y]="\u2566";
+			   wtf[temp.pos.x][temp.pos.y]="\u2566";
 			   break;
 			   case bishop:
-			   board[temp.pos.x][temp.pos.y]="\u2567";
+			   wtf[temp.pos.x][temp.pos.y]="\u2567";
 			   break;
 			   case queen:
-			   board[temp.pos.x][temp.pos.y]="\u2565";
+			   wtf[temp.pos.x][temp.pos.y]="\u2565";
 			   break;
 			   case king:
-			   board[temp.pos.x][temp.pos.y]="\u2564";
+			   wtf[temp.pos.x][temp.pos.y]="\u2564";
 			   break;}
 
 		}
@@ -80,29 +80,29 @@ class Board{
 			Piece temp=*w;
 			switch(temp.type){
 			   case pawn:
-			   board[temp.pos.x][temp.pos.y]="\u256f";
+			   wtf[temp.pos.x][temp.pos.y]="\u256f";
 			   break;
 			   case knight: 
-			   board[temp.pos.x][temp.pos.y]="\u256e";
+			   wtf[temp.pos.x][temp.pos.y]="\u256e";
 			   break;
 			   case rook:
-			   board[temp.pos.x][temp.pos.y]="\u256c";
+			   wtf[temp.pos.x][temp.pos.y]="\u256c";
 			   break;
 			   case bishop:
-			   board[temp.pos.x][temp.pos.y]="\u256d";
+			   wtf[temp.pos.x][temp.pos.y]="\u256d";
 			   break;
 			   case queen:
-			   board[temp.pos.x][temp.pos.y]="\u256b";
+			   wtf[temp.pos.x][temp.pos.y]="\u256b";
 			   break;
 			   case king:
-			   board[temp.pos.x][temp.pos.y]="\u256a";
+			   wtf[temp.pos.x][temp.pos.y]="\u256a";
 			   break;}
-		}	
+		}
 		for(int j =0;j < 8;j++)
     		{
     			for(int i =0; i<8 ;i++)
     				{
-    					cout << board[i][j] << " ";
+    					cout << wtf[j][i] << " ";
     				}
     			cout << endl;	
     		}

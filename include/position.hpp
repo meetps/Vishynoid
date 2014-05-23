@@ -15,10 +15,6 @@ class Position
   }
   Position(int a, int b)
   {
-    assert(a<8);
-    assert(b<8);
-    assert(a>-1);
-    assert(b>-1);
     x=a;
     y=b;
   }
