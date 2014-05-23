@@ -66,10 +66,13 @@ void loop(int n){
 	temp.display();
 	for(int i=0; i< n; i++){
 		Move m=temp.optimalMove();
-		m.display();
+		//cout<<"HI";
+		//m.display();
 		temp=temp.applyMove(m);
-		temp.display();
 		cout<<"\n\n\n";
+		temp.display();
+		int i;
+		cin >>i;
 	}
 }
 int main(){

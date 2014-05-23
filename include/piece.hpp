@@ -15,7 +15,6 @@ class Piece{
 	Position pos;
 	int color;	
 	bool alive;
-	int myBoard[8][8];
 	bool operator == (Piece p2){
 		if(type == p2.type && pos == p2.pos && color == p2.color)
 			return true;
@@ -51,12 +50,7 @@ class Piece{
 		}
 	
 	}
-	void setBoard(int arr[][8]){
-		for(int i=0; i<=7; i++)
-			for(int j=0; j<=7; j++)
-				myBoard[i][j]=arr[i][j];
-	}
-	list<Move> knightMoves(){
+	list<Move> knightMoves(const int myBoard[8][8]){
 		list<Move> ret;
 		if (!alive)
 			return ret;
@@ -81,7 +75,7 @@ class Piece{
 			ret.push_front(Move(pos, Position(x-2,y-1)));						 
 		return ret;
 	}
-	list<Move> kingMoves(){
+	list<Move> kingMoves(const int myBoard[8][8]){
 			list<Move> ret;
 			if (!alive)
 			return ret;
@@ -97,7 +91,7 @@ class Piece{
 				}
 			}
 		}
-	list<Move> queenMoves(){
+	list<Move> queenMoves(const int myBoard[8][8]){
 		list<Move> ret;
 		if (!alive)
 			return ret;
@@ -194,7 +188,7 @@ class Piece{
 		}
 		return ret;
 	}
-	list<Move> bishopMoves(){
+	list<Move> bishopMoves(const int myBoard[8][8]){
 		list<Move> ret;
 		if (!alive)
 			return ret;
@@ -247,11 +241,11 @@ class Piece{
 		}
 		return ret;
 	}
-	list<Move> emptyMoves(){
+	list<Move> emptyMoves(const int myBoard[8][8]){
 		list<Move> ret;
 		return ret;
 	}
-	list<Move> pawnMoves(){
+	list<Move> pawnMoves(const int myBoard[8][8]){
 		list<Move> ret;
 		if (!alive)
 			return ret;
@@ -271,7 +265,7 @@ class Piece{
 		return ret;
 	}
 	
-	list<Move> rookMoves(){
+	list<Move> rookMoves(const int myBoard[8][8]){
 		list<Move> ret;
 		if (!alive)
 			return ret;
@@ -325,25 +319,25 @@ class Piece{
 		return ret;
 	}
 
-	list<Move> getMoves(){
+	list<Move> getMoves(const int myBoard[8][8]){
 		//myBoard=board;
 		list<Move> ret;
 		if(!alive)
 			return ret;
 		switch(type){
-			case empty: return emptyMoves();
+			case empty: return emptyMoves(myBoard);
 				break;
-			case pawn: return pawnMoves();
+			case pawn: return pawnMoves(myBoard);
 				break;
-			case bishop: return bishopMoves();
+			case bishop: return bishopMoves(myBoard);
 				break;
-			case rook: return rookMoves();
+			case rook: return rookMoves(myBoard);
 				break;
-			case knight: return knightMoves();
+			case knight: return knightMoves(myBoard);
 				break;
-			case king: return kingMoves();
+			case king: return kingMoves(myBoard);
 				break;
-			case queen: return queenMoves();
+			case queen: return queenMoves(myBoard);
 				break;
 		}
 	}

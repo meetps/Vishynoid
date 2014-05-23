@@ -100,14 +100,19 @@ class Board{
 			   wtf[temp.pos.x][temp.pos.y]=/*"\u256a"*/ "O";
 			   break;}
 		}
+		cout<<"_________________\n|";
 		for(int j =7;j >=0;j--)
+		
     		{
     			for(int i =0; i<8 ;i++)
     				{
     					cout << wtf[i][j] << " ";
     				}
-    			cout << endl;	
+    			cout<<"|";
+    			cout << endl;
+    			if(j!=0) cout << "|";
     		}
+    		cout<<"_________________\n";
     }
 				
 	list<Move> getMoves(){
@@ -126,16 +131,16 @@ class Board{
 		if(color == 1){	
 			for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++){
 				Piece temp=*w;
-				temp.setBoard(arr);
-				list<Move> wMoves= temp.getMoves();
+				//temp.setBoard(arr);
+				list<Move> wMoves= temp.getMoves(arr);
 				ret.splice(ret.end(),wMoves);
 			}
 		}
 		else{
 			for(list<Piece>::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++){
 				Piece temp=*b;
-				temp.setBoard(arr);
-				list<Move> bMoves= temp.getMoves();
+				//temp.setBoard(arr);
+				list<Move> bMoves= temp.getMoves(arr);
 				ret.splice(ret.end(),bMoves);
 			}
 		}	
@@ -145,17 +150,25 @@ class Board{
 	float getBoardValue(int POV){
         float materialScore = 0;
         float mobilityScore = 0;
-
+	int arr[8][8];
+		for(int i=0; i<=7; i++)
+			for(int j=0; j<=7; j++)
+				arr[i][j]=0;
+		for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
+			arr[(*w).pos.x][(*w).pos.y]=1;
+		for(list<Piece>::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++)
+			arr[(*b).pos.x][(*b).pos.y]=-1;
+		
         for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
         {
 			Piece temp=*w;
-			mobilityScore -= temp.getMoves().size();
+			mobilityScore -= temp.getMoves(arr).size();
 			materialScore -= temp.pieceValue;	
 		}
         for(list<Piece>::iterator w=blackPieces.begin(); w!=blackPieces.end(); w++)
         {
 			Piece temp=*w;
-			mobilityScore += temp.getMoves().size();
+			mobilityScore += temp.getMoves(arr).size();
 			materialScore += temp.pieceValue;	
 		}
 		
