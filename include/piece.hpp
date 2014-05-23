@@ -258,10 +258,12 @@ class Piece{
 		int x=pos.x;
 		int y=pos.y;
 		int change= color==1 ? 1 : -1;
-		if((y!=7) && (myBoard[x][(y+change)])==0) //one step ahead
+		if((y!=7) && (myBoard[x][(y+change)])==0){ //one step ahead
 			ret.push_front(Move(pos, Position(x,y+change))); 
-		if((y==1 && color== 1 || y==6 && color==-1) && myBoard[x][y+2*change]==0)//two steps ahead
-			ret.push_front(Move(pos, Position(x, y+2*change)));
+			
+			if((y==1 && color== 1 || y==6 && color==-1) && myBoard[x][y+2*change]==0)//two steps ahead
+				ret.push_front(Move(pos, Position(x, y+2*change)));
+		}
 		if(x!=7 && myBoard[x+1][y+change]== (-color))//one step ahead, and one to the right
 			ret.push_front(Move(pos, Position(x+1,y+change)));
 		if(x!=0 && myBoard[x-1][y+change]== (-color))//one step ahead and one to the left

@@ -69,15 +69,15 @@ void loop(int n){
 		m.display();
 		temp=temp.applyMove(m);
 		temp.display();
-		cout<<"\v";
+		cout<<"\n\n\n";
 	}
 }
 int main(){
-	//loop(3);
-	Board temp=setStandardBoard();
+	loop(3);
+	/*Board temp=setStandardBoard();
 	temp = temp.applyMove(Move(Position(1,0),Position(0,2)));
 	temp.display();
 	Move m = temp.optimalMove();
-	m.display();
+	m.display();*/
 	return 0;
 }
