@@ -50,7 +50,7 @@ class Board{
     		{
     			for(int j =0; j<8 ;j++)
     				{
-    					wtf[i][j] = " ";
+    					wtf[i][j] = "\xe2\x98\x90";
     				}
     		}		
     	for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
@@ -58,49 +58,50 @@ class Board{
 			Piece temp=*w;
 			switch(temp.type){
 			   case pawn:
-			  	 wtf[temp.pos.x][temp.pos.y]=/*"\u2569"*/ "p";
+			  	 wtf[temp.pos.x][temp.pos.y]= "\xe2\x99\x99";
 			  	 break;
 			   case knight: 
-			   	wtf[temp.pos.x][temp.pos.y]=/*"\u2568"*/ "k";
+			   	wtf[temp.pos.x][temp.pos.y]= "\xe2\x99\x98";
 			   	break;
 			   case rook:
-			   wtf[temp.pos.x][temp.pos.y]=/*"\u2566"*/ "r";
+			   wtf[temp.pos.x][temp.pos.y]="\xe2\x99\x96";
 			   break;
 			   case bishop:
-			   wtf[temp.pos.x][temp.pos.y]=/*"\u2567"*/ "b";
+			   wtf[temp.pos.x][temp.pos.y]="\xe2\x99\x97";
 			   break;
 			   case queen:
-			   wtf[temp.pos.x][temp.pos.y]=/*"\u2565"*/ "q";
+			   wtf[temp.pos.x][temp.pos.y]="\xe2\x99\x95";
 			   break;
 			   case king:
-			   wtf[temp.pos.x][temp.pos.y]=/*"\u2564"*/ "o";
+			   wtf[temp.pos.x][temp.pos.y]="\xe2\x99\x94";
 			   break;}
 
 		}
         for(list<Piece>::iterator w=blackPieces.begin(); w!=blackPieces.end(); w++)
-        {
+        {   
 			Piece temp=*w;
 			switch(temp.type){
 			   case pawn:
-			   wtf[temp.pos.x][temp.pos.y]=/*"\u256f"*/ "P";
+			   wtf[temp.pos.x][temp.pos.y]="\xe2\x99\x9f";
 			   break;
 			   case knight: 
-			   wtf[temp.pos.x][temp.pos.y]=/*"\u256e"*/ "K";
+			   wtf[temp.pos.x][temp.pos.y]="\xe2\x99\x9e";
 			   break;
 			   case rook:
-			   wtf[temp.pos.x][temp.pos.y]=/*"\u256c"*/ "R";
+			   wtf[temp.pos.x][temp.pos.y]="\xe2\x99\x9c";
 			   break;
 			   case bishop:
-			   wtf[temp.pos.x][temp.pos.y]=/*"\u256d"*/ "B";
+			   wtf[temp.pos.x][temp.pos.y]="\xe2\x99\x9d";
 			   break;
 			   case queen:
-			   wtf[temp.pos.x][temp.pos.y]=/*"\u256b"*/ "Q";
+			   wtf[temp.pos.x][temp.pos.y]="\xe2\x99\x9b";
 			   break;
 			   case king:
-			   wtf[temp.pos.x][temp.pos.y]=/*"\u256a"*/ "O";
+			   wtf[temp.pos.x][temp.pos.y]="\xe2\x99\x9a";
 			   break;}
 		}
-		cout<<"_________________\n|";
+		cout << " ";
+		cout<<"________________\n|";
 		for(int j =7;j >=0;j--)
 		
     		{
@@ -112,7 +113,12 @@ class Board{
     			cout << endl;
     			if(j!=0) cout << "|";
     		}
-    		cout<<"_________________\n";
+    		cout << " ";
+    		for (int k = 0; k< 16 ;k++)
+    		{
+				cout<<"\xe2\x80\xbe";
+			}
+			cout << "\n";	
     }
 				
 	list<Move> getMoves(){

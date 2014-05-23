@@ -1,0 +1,96 @@
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:47:18: error: expected unqualified-id before ‘[’ token
+board.hpp: In lambda function:
+board.hpp:52:18: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:52:18: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:52:20: error: no match for ‘operator[]’ in ‘{i}[j]’
+board.hpp:60:18: error: expected ‘,’ before ‘.’ token
+board.hpp:60:18: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:60:25: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:60:25: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:60:36: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:63:18: error: expected ‘,’ before ‘.’ token
+board.hpp:63:18: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:63:25: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:63:25: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:63:36: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:66:17: error: expected ‘,’ before ‘.’ token
+board.hpp:66:17: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:66:24: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:66:24: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:66:35: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:69:17: error: expected ‘,’ before ‘.’ token
+board.hpp:69:17: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:69:24: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:69:24: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:69:35: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:72:17: error: expected ‘,’ before ‘.’ token
+board.hpp:72:17: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:72:24: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:72:24: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:72:35: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:75:17: error: expected ‘,’ before ‘.’ token
+board.hpp:75:17: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:75:24: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:75:24: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:75:35: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:84:17: error: expected ‘,’ before ‘.’ token
+board.hpp:84:17: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:84:24: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:84:24: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:84:35: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:87:17: error: expected ‘,’ before ‘.’ token
+board.hpp:87:17: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:87:24: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:87:24: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:87:35: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:90:17: error: expected ‘,’ before ‘.’ token
+board.hpp:90:17: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:90:24: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:90:24: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:90:35: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:93:17: error: expected ‘,’ before ‘.’ token
+board.hpp:93:17: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:93:24: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:93:24: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:93:35: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:96:17: error: expected ‘,’ before ‘.’ token
+board.hpp:96:17: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:96:24: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:96:24: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:96:35: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp:99:17: error: expected ‘,’ before ‘.’ token
+board.hpp:99:17: error: expected identifier before ‘.’ token
+board.hpp: In lambda function:
+board.hpp:99:24: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:99:24: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:99:35: error: no match for ‘operator[]’ in ‘{temp}[temp.Piece::pos.Position::y]’
+board.hpp: In lambda function:
+board.hpp:106:26: error: expected ‘{’ before ‘[’ token
+board.hpp: In member function ‘void Board::display()’:
+board.hpp:106:26: warning: lambda expressions only available with -std=c++0x or -std=gnu++0x [enabled by default]
+board.hpp:106:28: error: no match for ‘operator[]’ in ‘{i}[j]’
