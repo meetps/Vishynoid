@@ -10,9 +10,7 @@ class Board{
 	list<Piece> blackPieces;
 	int color;
 	Move bestMove;
-	Move optimalMove(){
-		return Move(Position(), Position());
-	}
+	Move optimalMove();
 	Board(list<Piece> white, list<Piece> black, int c){
 		whitePieces=white;
 		blackPieces=black;
@@ -43,9 +41,9 @@ class Board{
 		return Board(w2, b2, -color);
 	}
 
-    void display()
+    /*void display()
     {  
-    	string board[9][9];
+    	string board[9][9]; 
     	for(int i =0;i < 9;i++)
     		{
     			for(int j =0; j<9 ;j++)
@@ -96,7 +94,7 @@ class Board{
     				}
     			cout << endl;	
     		}
-    }
+    }*/
 				
 	list<Move> getMoves(){
 		list<Move> ret;
@@ -143,11 +141,12 @@ class Board{
 			mobilityScore -= temp.getMoves().size();
 			materialScore -= temp.pieceValue;	
 		}
-		if(color == -1)
-        {
+		//if(color == -1)
+        //{
+        	// considering that we're always calculating value of boart wrt black player
         	materialScore = - materialScore;
         	mobilityScore = - mobilityScore;
-        }
+        //}
 		return materialScore + mobilityScore*0.1 ;
 	}
 	
@@ -161,4 +160,7 @@ class Board{
 		return Piece();
 	}
 };
+Move Board::optimalMove(){
+	return Move(Position(), Position());
+}
 #endif
