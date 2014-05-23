@@ -109,19 +109,22 @@ class Board{
 			arr[(*b).pos.x][(*b).pos.y]=-1;
 			
 			
-			
-		for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++){
-			Piece temp=*w;
-			temp.setBoard(arr);
-			list<Move> wMoves= temp.getMoves();
-			ret.splice(ret.end(),wMoves);
+		if(color == 1){	
+			for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++){
+				Piece temp=*w;
+				temp.setBoard(arr);
+				list<Move> wMoves= temp.getMoves();
+				ret.splice(ret.end(),wMoves);
+			}
 		}
-		for(list<Piece>::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++){
-			Piece temp=*b;
-			temp.setBoard(arr);
-			list<Move> bMoves= temp.getMoves();
-			ret.splice(ret.end(),bMoves);
-		}
+		else{
+			for(list<Piece>::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++){
+				Piece temp=*b;
+				temp.setBoard(arr);
+				list<Move> bMoves= temp.getMoves();
+				ret.splice(ret.end(),bMoves);
+			}
+		}	
 		return ret;
 	}		
 	

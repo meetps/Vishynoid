@@ -168,7 +168,7 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, int depth){
 		return b.getBoardValue();
 	float thisAlpha = -10000;
 	float thisBeta  = +10000;
-	if(depth%2 == 1){
+	if(depth%2 == 1){ //MIN node
 		list<Move> moves=b.getMoves();
 		for(list<Move>::iterator curMove=moves.begin(); curMove!=moves.end(); curMove++){
 			float temp = nodeScore(b.applyMove(*curMove), parentAlpha, min(thisBeta, parentBeta), depth+1);
@@ -178,7 +178,7 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, int depth){
 			}
 		return thisBeta;
 	}
-	if(depth%2 == 0){
+	if(depth%2 == 0){ //MAX node
 		list<Move> moves=b.getMoves();
 		for(list<Move>::iterator curMove=moves.begin(); curMove!=moves.end(); curMove++){
 			float temp = nodeScore(b.applyMove(*curMove), max(thisAlpha, parentAlpha), parentBeta, depth+1);
