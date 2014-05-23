@@ -1,10 +1,10 @@
 #ifndef CONSTANTS
 #define CONSTANTS
-int pawnValue=0;
-int knightValue=0;
-int rookValue=0;
-int bishopValue=0;
-int queenValue=0;
-int kingValue=0;
-int recursionDepth=0;
+int pawnValue=5;
+int knightValue=20;
+int rookValue=30;
+int bishopValue=25;
+int queenValue=60;
+int kingValue=1000;
+int recursionDepth=4;
 #endif

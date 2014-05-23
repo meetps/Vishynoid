@@ -59,10 +59,25 @@ Board setStandardBoard(){
 	
 	//queen
 	black.push_back(Piece(Position(3,7), -1, queen));
-	
 	return Board(white,black,1);
 }
-int main(){
-	Board temp = setStandardBoard();
+void loop(int n){
+	Board temp= setStandardBoard();
 	temp.display();
+	for(int i=0; i< n; i++){
+		Move m=temp.optimalMove();
+		m.display();
+		temp=temp.applyMove(m);
+		temp.display();
+		cout<<"\v";
+	}
+}
+int main(){
+	//loop(3);
+	Board temp=setStandardBoard();
+	temp = temp.applyMove(Move(Position(1,0),Position(0,2)));
+	temp.display();
+	Move m = temp.optimalMove();
+	m.display();
+	return 0;
 }

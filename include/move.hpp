@@ -1,6 +1,8 @@
 #ifndef MOVE
 #define MOVE
 #include "position.hpp"
+#include<iostream>
+using namespace std;
 class Move{
 	public:
 	Position initial;
@@ -15,6 +17,9 @@ class Move{
 		initial=p1;
 		final=p2;
 		isValid=true;
+	}
+	void display(){
+		cout<<initial.x<<","<<initial.y<<" to "<<final.x<<","<<final.y<<endl;
 	}
 };
 

@@ -12,10 +12,11 @@ class Board{
 	Move bestMove;
 	Move optimalMove();
 	Board(list<Piece> white, list<Piece> black, int c){
+		//cout<<"Making a board\n";
 		whitePieces=white;
 		blackPieces=black;
 		color=c;
-		bestMove=optimalMove();
+		//bestMove=optimalMove();
 	}
 	Board applyMove(Move m){
 		Piece p1 = pieceAt(m.initial);
@@ -43,6 +44,7 @@ class Board{
 
     void display()
 	{  
+	//cout<<"in display\n";
     	string wtf[8][8]; 
     	for(int i =0;i < 8;i++)
     		{
@@ -56,22 +58,22 @@ class Board{
 			Piece temp=*w;
 			switch(temp.type){
 			   case pawn:
-			  	 wtf[temp.pos.x][temp.pos.y]="\u2569";
+			  	 wtf[temp.pos.x][temp.pos.y]=/*"\u2569"*/ "p";
 			  	 break;
 			   case knight: 
-			   	wtf[temp.pos.x][temp.pos.y]="\u2568";
+			   	wtf[temp.pos.x][temp.pos.y]=/*"\u2568"*/ "k";
 			   	break;
 			   case rook:
-			   wtf[temp.pos.x][temp.pos.y]="\u2566";
+			   wtf[temp.pos.x][temp.pos.y]=/*"\u2566"*/ "r";
 			   break;
 			   case bishop:
-			   wtf[temp.pos.x][temp.pos.y]="\u2567";
+			   wtf[temp.pos.x][temp.pos.y]=/*"\u2567"*/ "b";
 			   break;
 			   case queen:
-			   wtf[temp.pos.x][temp.pos.y]="\u2565";
+			   wtf[temp.pos.x][temp.pos.y]=/*"\u2565"*/ "q";
 			   break;
 			   case king:
-			   wtf[temp.pos.x][temp.pos.y]="\u2564";
+			   wtf[temp.pos.x][temp.pos.y]=/*"\u2564"*/ "o";
 			   break;}
 
 		}
@@ -80,29 +82,29 @@ class Board{
 			Piece temp=*w;
 			switch(temp.type){
 			   case pawn:
-			   wtf[temp.pos.x][temp.pos.y]="\u256f";
+			   wtf[temp.pos.x][temp.pos.y]=/*"\u256f"*/ "P";
 			   break;
 			   case knight: 
-			   wtf[temp.pos.x][temp.pos.y]="\u256e";
+			   wtf[temp.pos.x][temp.pos.y]=/*"\u256e"*/ "K";
 			   break;
 			   case rook:
-			   wtf[temp.pos.x][temp.pos.y]="\u256c";
+			   wtf[temp.pos.x][temp.pos.y]=/*"\u256c"*/ "R";
 			   break;
 			   case bishop:
-			   wtf[temp.pos.x][temp.pos.y]="\u256d";
+			   wtf[temp.pos.x][temp.pos.y]=/*"\u256d"*/ "B";
 			   break;
 			   case queen:
-			   wtf[temp.pos.x][temp.pos.y]="\u256b";
+			   wtf[temp.pos.x][temp.pos.y]=/*"\u256b"*/ "Q";
 			   break;
 			   case king:
-			   wtf[temp.pos.x][temp.pos.y]="\u256a";
+			   wtf[temp.pos.x][temp.pos.y]=/*"\u256a"*/ "O";
 			   break;}
 		}
-		for(int j =0;j < 8;j++)
+		for(int j =7;j >=0;j--)
     		{
     			for(int i =0; i<8 ;i++)
     				{
-    					cout << wtf[j][i] << " ";
+    					cout << wtf[i][j] << " ";
     				}
     			cout << endl;	
     		}
