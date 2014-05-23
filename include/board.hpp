@@ -128,7 +128,7 @@ class Board{
 		return ret;
 	}		
 	
-	float getBoardValue(){
+	float getBoardValue(int POV){
         float materialScore = 0;
         float mobilityScore = 0;
 
@@ -144,13 +144,11 @@ class Board{
 			mobilityScore += temp.getMoves().size();
 			materialScore += temp.pieceValue;	
 		}
-		//if(color == -1)
-        //{
-        	// considering that we're always calculating value of boart wrt black player, we don't need these lines
-        	//materialScore = - materialScore;
-        	//mobilityScore = - mobilityScore;
-        //}
-		return materialScore + mobilityScore*0.1 ;
+		
+		float total= materialScore + mobilityScore*0.1 ;
+		if(POV == -1)
+			return total;
+		return -total;
 	}
 	
 	Piece pieceAt(const Position p){
@@ -163,18 +161,18 @@ class Board{
 		return Piece();
 	}
 };
-float nodeScore(Board b, float parentAlpha, float parentBeta, int depth){
+float nodeScore(Board b, float parentAlpha, float parentBeta, int depth, int color){
 	//if N is leaf: return score wrt black
-	//N is MAX if recursion depth (0 index) is even
+	//N is MAX if depth (0 index) is even
 	//else MIN
 	if(depth == recursionDepth)
-		return b.getBoardValue();
+		return b.getBoardValue(color);
 	float thisAlpha = -10000;
 	float thisBeta  = +10000;
 	if(depth%2 == 1){ //MIN node
 		list<Move> moves=b.getMoves();
 		for(list<Move>::iterator curMove=moves.begin(); curMove!=moves.end(); curMove++){
-			float temp = nodeScore(b.applyMove(*curMove), parentAlpha, min(thisBeta, parentBeta), depth+1);
+			float temp = nodeScore(b.applyMove(*curMove), parentAlpha, min(thisBeta, parentBeta), depth+1, color);
 			thisBeta=min(temp,thisBeta);
 			if(parentAlpha >= thisBeta)
 				return thisBeta;
@@ -184,14 +182,13 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, int depth){
 	if(depth%2 == 0){ //MAX node
 		list<Move> moves=b.getMoves();
 		for(list<Move>::iterator curMove=moves.begin(); curMove!=moves.end(); curMove++){
-			float temp = nodeScore(b.applyMove(*curMove), max(thisAlpha, parentAlpha), parentBeta, depth+1);
+			float temp = nodeScore(b.applyMove(*curMove), max(thisAlpha, parentAlpha), parentBeta, depth+1,color);
 			thisAlpha=max(temp,thisAlpha);
 			if(thisAlpha >= parentBeta)
 				return thisAlpha;
 			}
 		return thisAlpha;
-	}
-		
+	}		
 	return 0;
 }
 Move Board::optimalMove(){
@@ -199,7 +196,7 @@ Move Board::optimalMove(){
 	int bestScore=-10000;
 	Move bestMove=Move(Position(), Position());
 	for(list<Move>::iterator curMove=moves.begin(); curMove!=moves.end(); curMove++){
-		int i= nodeScore(applyMove(*curMove), -10000, +10000, 1);
+		int i= nodeScore(applyMove(*curMove), -10000, +10000, 1, color);
 		if(i>bestScore){
 			bestScore=i;
 			bestMove=*curMove;
