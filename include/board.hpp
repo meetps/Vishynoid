@@ -41,12 +41,12 @@ class Board{
 		return Board(w2, b2, -color);
 	}
 
-    /*void display()
-    {  
-    	string board[9][9]; 
-    	for(int i =0;i < 9;i++)
+    void display()
+	{  
+    	string board[8][8]; 
+    	for(int i =0;i < 7;i++)
     		{
-    			for(int j =0; j<9 ;j++)
+    			for(int j =0; j<7 ;j++)
     				{
     					board[i][j] = " ";
     				}
@@ -54,47 +54,59 @@ class Board{
     	for(list<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
         {
 			Piece temp=*w;
-			switch(temp.type)
-			   case:pawn
-			   board[temp.pos.x][temp.pos.y]="\u2569";
-			   case:knight 
-			   board[temp.pos.x][temp.pos.y]="\u2568";
-			   case:rook
+			switch(temp.type){
+			   case pawn:
+			  	 board[temp.pos.x][temp.pos.y]="\u2569";
+			  	 break;
+			   case knight: 
+			   	board[temp.pos.x][temp.pos.y]="\u2568";
+			   	break;
+			   case rook:
 			   board[temp.pos.x][temp.pos.y]="\u2566";
-			   case:bishop
+			   break;
+			   case bishop:
 			   board[temp.pos.x][temp.pos.y]="\u2567";
-			   case:queen
+			   break;
+			   case queen:
 			   board[temp.pos.x][temp.pos.y]="\u2565";
-			   case:king
+			   break;
+			   case king:
 			   board[temp.pos.x][temp.pos.y]="\u2564";
+			   break;}
 
 		}
         for(list<Piece>::iterator w=blackPieces.begin(); w!=blackPieces.end(); w++)
         {
 			Piece temp=*w;
-			switch(temp.type)
-			   case:pawn
+			switch(temp.type){
+			   case pawn:
 			   board[temp.pos.x][temp.pos.y]="\u256f";
-			   case:knight 
+			   break;
+			   case knight: 
 			   board[temp.pos.x][temp.pos.y]="\u256e";
-			   case:rook
+			   break;
+			   case rook:
 			   board[temp.pos.x][temp.pos.y]="\u256c";
-			   case:bishop
+			   break;
+			   case bishop:
 			   board[temp.pos.x][temp.pos.y]="\u256d";
-			   case:queen
+			   break;
+			   case queen:
 			   board[temp.pos.x][temp.pos.y]="\u256b";
-			   case:king
+			   break;
+			   case king:
 			   board[temp.pos.x][temp.pos.y]="\u256a";
+			   break;}
 		}	
-		for(int j =1;j < 9;j++)
+		for(int j =0;j < 8;j++)
     		{
-    			for(int i =1; i<8 ;i++)
+    			for(int i =0; i<8 ;i++)
     				{
     					cout << board[i][j] << " ";
     				}
     			cout << endl;	
     		}
-    }*/
+    }
 				
 	list<Move> getMoves(){
 		list<Move> ret;
