@@ -131,44 +131,44 @@ public:
 		const char y = pos.y;
 		//up
 		for (char otherx = x, othery = y + 1; othery <= 7; othery++) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
 		}
 		//down
 		for (char otherx = x, othery = y - 1; othery >= 0; othery--) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
 		}
 		//right
 		for (char otherx = x + 1, othery = y; otherx <= 7; otherx++) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
 		}
 		//left
 		for (char otherx = x - 1, othery = y; otherx >= 0; otherx--) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
@@ -176,11 +176,11 @@ public:
 		//upright
 		for (char otherx = x + 1, othery = y + 1; otherx <= 7 && othery <= 7;
 				otherx++, othery++) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
@@ -188,11 +188,11 @@ public:
 		//downright
 		for (char otherx = x + 1, othery = y - 1; otherx <= 7 && othery >= 0;
 				otherx++, othery--) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
@@ -200,11 +200,11 @@ public:
 		//upleft
 		for (char otherx = x - 1, othery = y + 1; otherx >= 0 && othery <= 7;
 				otherx--, othery++) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
@@ -212,11 +212,11 @@ public:
 		//downleft
 		for (char otherx = x - 1, othery = y - 1; otherx >= 0 && othery >= 0;
 				otherx--, othery--) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
@@ -233,11 +233,11 @@ public:
 		//upright
 		for (char otherx = x + 1, othery = y + 1; otherx <= 7 && othery <= 7;
 				otherx++, othery++) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
@@ -245,11 +245,11 @@ public:
 		//downright
 		for (char otherx = x + 1, othery = y - 1; otherx <= 7 && othery >= 0;
 				otherx++, othery--) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
@@ -257,11 +257,11 @@ public:
 		//upleft
 		for (char otherx = x - 1, othery = y + 1; otherx >= 0 && othery <= 7;
 				otherx--, othery++) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
@@ -269,11 +269,11 @@ public:
 		//downleft
 		for (char otherx = x - 1, othery = y - 1; otherx >= 0 && othery >= 0;
 				otherx--, othery--) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
@@ -316,44 +316,44 @@ public:
 		const char y = pos.y;
 		//up
 		for (char otherx = x, othery = y + 1; othery <= 7; othery++) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
 		}
 		//down
 		for (char otherx = x, othery = y - 1; othery >= 0; othery--) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
 		}
 		//right
 		for (char otherx = x + 1, othery = y; otherx <= 7; otherx++) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
 		}
 		//left
 		for (char otherx = x - 1, othery = y; otherx >= 0; otherx--) {
-			if (myBoard[otherx][othery] == 0)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == 0)
 				ret.push_back(Move(pos, Position(otherx, othery)));
-			if (myBoard[otherx][othery] == color)
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == color)
 				break;
-			if (myBoard[otherx][othery] == (-color)) {
+			if (isValid(otherx,othery) && myBoard[otherx][othery] == (-color)) {
 				ret.push_back(Move(pos, Position(otherx, othery)));
 				break;
 			}
