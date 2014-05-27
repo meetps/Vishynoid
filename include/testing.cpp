@@ -1,7 +1,7 @@
 #include<iostream>
 #include "board.hpp"
 Board setStandardBoard(){
-	list<Piece> white,black;
+	vector<Piece> white,black;
 					//white
 	//pawns
 	white.push_back(Piece(Position(0,1), 1, pawn));
@@ -61,26 +61,44 @@ Board setStandardBoard(){
 	black.push_back(Piece(Position(3,7), -1, queen));
 	return Board(white,black,1);
 }
-void loop(int n){
+void test1(int n, bool display=false){
 	Board temp= setStandardBoard();
 	temp.display();
 	for(int i=0; i< n; i++){
-		Move m=temp.optimalMove();
-		//cout<<"HI";
-		//m.display();
+		Move m=temp.optimalMove(display);
+		m.display();
 		temp=temp.applyMove(m);
 		cout<<"\n\n\n";
 		temp.display();
-		int i;
-		cin >>i;
+		cout<<i<<endl;
 	}
 }
-int main(){
-	loop(3);
-	/*Board temp=setStandardBoard();
-	temp = temp.applyMove(Move(Position(1,0),Position(0,2)));
+void test2(int n){
+	Board temp= setStandardBoard();
 	temp.display();
-	Move m = temp.optimalMove();
-	m.display();*/
+	temp=temp.applyMove(Move(Position(0,0),Position(0,0)));
+	for(int i=0; i< n; i++){
+		Move m=temp.optimalMove();
+		temp=temp.applyMove(m);
+		cout<<"\n\n\n";
+		temp.display();
+		int a,b,c,d;
+		cin >>a>>b>>c>>d;
+		temp=temp.applyMove(Move(Position(a,b),Position(c,d)));
+		temp.display();
+		cout<<i<<endl;
+	}
+}
+void test3(int dummy=0){
+	vector<Piece> white,black;
+	white.push_back(Piece(Position(3,4),1,queen));
+	black.push_back(Piece(Position(4,5),-1,pawn));
+	Board b(white,black,1);
+	b.display();
+	b=b.applyMove(b.optimalMove());
+	b.display();
+}
+int main(){
+	test1(25);
 	return 0;
 }
