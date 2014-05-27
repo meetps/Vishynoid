@@ -6,5 +6,5 @@ int rookValue=30;
 int bishopValue=25;
 int queenValue=60;
 int kingValue=1000;
-int recursionDepth=3;
+int recursionDepth=2;
 #endif

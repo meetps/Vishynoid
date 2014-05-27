@@ -321,7 +321,7 @@ Move Board::optimalMove(bool display = false) {
 	Move bestMove = Move(Position(), Position());
 	for (vector<Move>::iterator curMove = moves.begin(); curMove != moves.end();
 			curMove++) {
-		int i = nodeScore(applyMove(*curMove), -10000, +10000, 1, color,
+		int i = nodeScore(applyMove(*curMove), -10000, +10000, 1, -color,
 				display);
 		if (i > bestScore) {
 			bestScore = i;
