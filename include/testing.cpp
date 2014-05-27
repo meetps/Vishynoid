@@ -64,12 +64,15 @@ Board setStandardBoard(){
 void test1(int n, bool display=false){
 	Board temp= setStandardBoard();
 	temp.display();
+	int j= 0;
 	for(int i=0; i< n; i++){
 		Move m=temp.optimalMove(display);
 		m.display();
 		temp=temp.applyMove(m);
+		cout << temp.getBoardValue(temp.color) << endl;
 		cout<<"\n\n\n";
 		temp.display();
+		cin >> j;
 		cout<<i<<endl;
 	}
 }
@@ -99,6 +102,6 @@ void test3(int dummy=0){
 	b.display();
 }
 int main(){
-	test1(25);
+	test1(100);
 	return 0;
 }
