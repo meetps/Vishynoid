@@ -67,7 +67,10 @@ public:
 		for (vector<Piece>::iterator w = whitePieces.begin();
 				w != whitePieces.end(); w++) {
 			Piece temp = *w;
-			switch (temp.type) {
+		   if(temp.alive)
+ 			{	
+			switch (temp.type) 
+				{
 			case pawn:
 				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x99";
 				break;
@@ -86,13 +89,17 @@ public:
 			case king:
 				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x94";
 				break;
+				}
 			}
 
 		}
 		for (vector<Piece>::iterator w = blackPieces.begin();
 				w != blackPieces.end(); w++) {
 			Piece temp = *w;
-			switch (temp.type) {
+			if(temp.alive)
+			{
+			switch (temp.type) 
+					{
 			case pawn:
 				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x9f";
 				break;
@@ -111,7 +118,9 @@ public:
 			case king:
 				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x9a";
 				break;
+					}
 			}
+
 		}
 		cout << " ";
 		cout << "________________\n|";
