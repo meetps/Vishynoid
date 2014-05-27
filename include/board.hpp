@@ -324,7 +324,7 @@ Move Board::optimalMove(bool display = false) {
 <<<<<<< HEAD
 		int i = nodeScore(applyMove(*curMove), -INFY, +INFY, 1, color,
 =======
-		int i = nodeScore(applyMove(*curMove), -10000, +10000, 1, -color,
+		int i = nodeScore(applyMove(*curMove), -INFY, +INFY, 1, -color,
 >>>>>>> c703729c6dc424e87e6fcbe541614cdf0e935a45
 				display);
 		if (i > bestScore) {
