@@ -233,9 +233,9 @@ public:
 		}
 		float total = materialScore + mobilityScore * 0.1;
 		if (POV == 1)
-			total += whiteCheck * -10000 + blackCheck * 10000;
+			total += whiteCheck * -INFY + blackCheck * INFY;
 		if (POV == -1)
-			total += blackCheck * -10000 + whiteCheck * 10000;
+			total += blackCheck * -INFY + whiteCheck * INFY;
 		if (POV == -1)
 			return total;
 		return -total;
@@ -263,8 +263,8 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 	//int thisValue = b.getBoardValue(color);
 	if (depth == recursionDepth)
 		return b.getBoardValue(color);
-	float thisAlpha = -10000;
-	float thisBeta = +10000;
+	float thisAlpha = -INFY;
+	float thisBeta = +INFY;
 	int branchingFactor = 0;
 
 	//move ordering
@@ -317,11 +317,11 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 }
 Move Board::optimalMove(bool display = false) {
 	vector<Move> moves = getMoves();
-	int bestScore = -10000;
+	int bestScore = -INFY;
 	Move bestMove = Move(Position(), Position());
 	for (vector<Move>::iterator curMove = moves.begin(); curMove != moves.end();
 			curMove++) {
-		int i = nodeScore(applyMove(*curMove), -10000, +10000, 1, color,
+		int i = nodeScore(applyMove(*curMove), -INFY, +INFY, 1, color,
 				display);
 		if (i > bestScore) {
 			bestScore = i;
