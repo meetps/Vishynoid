@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/meet/OpenCV/Canny-Edge-Detection/Edge.cpp
+opencv2/imgproc/imgproc.hpp
+/home/meet/OpenCV/Canny-Edge-Detection/opencv2/imgproc/imgproc.hpp
+opencv2/highgui/highgui.hpp
+/home/meet/OpenCV/Canny-Edge-Detection/opencv2/highgui/highgui.hpp
+stdlib.h
+-
+stdio.h
+-
+

@@ -1,0 +1,1 @@
+/home/meet/OpenCV/Canny-Edge-Detection/CMakeFiles/Edge.dir

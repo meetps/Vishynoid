@@ -7,5 +7,5 @@ int bishopValue=3;
 int queenValue=9;
 int kingValue=200;
 int INFY=10000;
-int recursionDepth=3;
+int recursionDepth=4;
 #endif
