@@ -229,10 +229,6 @@ public:
 		}
 		
 		float total = materialScore + mobilityScore * 0.1;
-		if (POV == 1)
-			total += whiteCheck * -INFY + blackCheck * INFY;
-		if (POV == -1)
-			total += blackCheck * -INFY + whiteCheck * INFY;
 		if (POV == -1)
 			return total;
 		return -total;

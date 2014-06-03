@@ -24,6 +24,7 @@ public:
 		return false;
 	}
 	float piecePositionValue(){
+		if(!alive) return 0;
 		float total = pieceValue;
 		if(color == -1)
 			switch (type) {
