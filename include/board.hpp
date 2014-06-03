@@ -316,14 +316,14 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 }
 Move Board::optimalMove(bool display = false) {
 	vector<Move> moves = getMoves();
-	int bestScore = -INFY;
+	float bestScore = -INFY;
 	Move bestMove = Move(Position(), Position());
 	for (vector<Move>::iterator curMove = moves.begin(); curMove != moves.end();
 			curMove++) {
 		Board tempBoard=applyMove(*curMove);
 		if(tempBoard.isCheck(-tempBoard.color))
 			continue;
-		int i = nodeScore(tempBoard, -INFY, +INFY, 1, color,
+		float i = nodeScore(tempBoard, -INFY, +INFY, 1, color,
 				display);
 		cout<<"Node score: "<<i<<" ";
 		curMove->display();
