@@ -162,7 +162,6 @@ public:
 			for (vector<Piece>::iterator w = whitePieces.begin();
 					w != whitePieces.end(); w++) {
 				Piece temp = *w;
-				//temp.setBoard(arr);
 				vector<Move> wMoves = temp.getMoves(arr);
 				ret.insert(ret.end(), wMoves.begin(), wMoves.end());
 			}
@@ -170,7 +169,6 @@ public:
 			for (vector<Piece>::iterator b = blackPieces.begin();
 					b != blackPieces.end(); b++) {
 				Piece temp = *b;
-				//temp.setBoard(arr);
 				vector<Move> bMoves = temp.getMoves(arr);
 				ret.insert(ret.end(), bMoves.begin(), bMoves.end());
 			}
@@ -179,9 +177,31 @@ public:
 			m->value = pieceAt(m->final).pieceValue
 					+ pieceAt(m->initial).pieceValue;
 		}
-		return ret;
+		vector<Move> ret2;
+		for(vector<Move>::iterator curMove=ret.begin();curMove!=ret.end();curMove++)
+			if(!applyMove(*curMove).isCheck(color))
+				ret2.push_back(*curMove);
+		if(ret2.size() == 0){
+			cout<<"Checkmate! " << (color==1 ? "black" : "white") << " wins!\n";
+			exit(1);
+		}
+		
+		return ret2;
 	}
-
+	bool isCheck(int c){
+		int original=color;
+		color=-c;
+		vector<Move> moves=getMoves();
+		for(vector<Move>::iterator curMove=moves.begin(); curMove!= moves.end(); curMove++){
+			Piece temp = pieceAt(curMove->final);
+			if(temp.type == king && temp.color==1){
+				color=original;
+				return true;
+			}
+		}
+		color=original;
+		return false;
+	}
 	float getBoardValue(char POV) {
 		float materialScore = 0;
 		float mobilityScore = 0;
