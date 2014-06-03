@@ -23,6 +23,58 @@ public:
 			return true;
 		return false;
 	}
+	float piecePositionValue(){
+		float total = 100*pieceValue;
+		if(color == -1)
+			switch (type) {
+			case empty:
+				total = 0;
+				break;
+			case pawn:
+				total += pawnPlace[pos.y][pos.x];
+				break;
+			case rook:
+				total += rookPlace[pos.y][pos.x];
+				break;
+			case knight:
+				total += knightPlace[pos.y][pos.x];
+				break;
+			case king:
+				total += kingPlace[pos.y][pos.x];
+				break;
+			case queen:
+				total += queenPlace[pos.y][pos.x];
+				break;
+			case bishop:
+				total += bishopPlace[pos.y][pos.x];
+				break;
+			}
+		else
+			switch (type) {
+			case empty:
+				total = 0;
+				break;
+			case pawn:
+				total += pawnPlace[7-pos.y][7-pos.x];
+				break;
+			case rook:
+				total += rookPlace[7-pos.y][7-pos.x];
+				break;
+			case knight:
+				total += knightPlace[7-pos.y][7-pos.x];
+				break;
+			case king:
+				total += kingPlace[7-pos.y][7-pos.x];
+				break;
+			case queen:
+				total += queenPlace[7-pos.y][7-pos.x];
+				break;
+			case bishop:
+				total += bishopPlace[7-pos.y][7-pos.x];
+				break;
+			};
+		return total/100;
+	}	
 	Piece() {
 		pos = Position();
 		type = empty;

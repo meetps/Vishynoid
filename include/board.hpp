@@ -204,7 +204,7 @@ public:
 			Piece temp = *w;
 			cur = temp.getMoves(arr);
 			mobilityScore -= cur.size();
-			materialScore -= temp.pieceValue;
+			materialScore -= temp.piecePositionValue();
 			/*if (blackCheck)
 				continue;
 			for (vector<Move>::iterator thing = cur.begin(); thing != cur.end();
@@ -220,7 +220,7 @@ public:
 			Piece temp = *w;
 			cur = temp.getMoves(arr);
 			mobilityScore += cur.size();
-			materialScore += temp.pieceValue;
+			materialScore += temp.piecePositionValue();
 			/*if (whiteCheck)
 				continue;
 			for (vector<Move>::iterator thing = cur.begin(); thing != cur.end();
@@ -231,6 +231,7 @@ public:
 				}
 			}*/
 		}
+		
 		float total = materialScore + mobilityScore * 0.1;
 		if (POV == 1)
 			total += whiteCheck * -INFY + blackCheck * INFY;
@@ -266,7 +267,7 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 	float thisAlpha = -INFY;
 	float thisBeta = +INFY;
 	int branchingFactor = 0;
-
+	
 	//move ordering
 	vector<Move> moves = b.getMoves();
 	sort(moves.begin(), moves.end()); //based on pieceValues at beginning and end
@@ -321,7 +322,7 @@ Move Board::optimalMove(bool display = false) {
 	Move bestMove = Move(Position(), Position());
 	for (vector<Move>::iterator curMove = moves.begin(); curMove != moves.end();
 			curMove++) {
-		int i = nodeScore(applyMove(*curMove), -INFY, +INFY, 1, -color,
+		int i = nodeScore(applyMove(*curMove), -INFY, +INFY, 1, color,
 				display);
 		if (i > bestScore) {
 			bestScore = i;
