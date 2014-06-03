@@ -56,8 +56,8 @@ public:
 	}
 
 	void display() {
-		//cout<<"in display\n";
 		cout << (color == 1 ? "white" : "black") << " to play!\n";
+		
 		string wtf[8][8];
 		for (char i = 0; i < 8; i++) {
 			for (char j = 0; j < 8; j++) {
@@ -130,7 +130,8 @@ public:
 			for (char i = 0; i < 8; i++) {
 				cout << wtf[i][j] << " ";
 			}
-			cout << "|";
+			
+			cout << "|"<<(int)j;
 			cout << endl;
 			if (j != 0)
 				cout << "|";
@@ -139,6 +140,8 @@ public:
 		for (char k = 0; k < 16; k++) {
 			cout << "\xe2\x80\xbe";
 		}
+		cout<<"\n 0 1 2 3 4 5 6 7\n";
+		
 		cout << "\n";
 	}
 
@@ -174,19 +177,10 @@ public:
 			}
 		}
 		for (vector<Move>::iterator m = ret.begin(); m != ret.end(); m++) {
-			m->value = pieceAt(m->final).pieceValue
-					+ pieceAt(m->initial).pieceValue;
+			m->value = pieceAt(m->final).piecePositionValue()
+					+ pieceAt(m->initial).piecePositionValue();
 		}
-		vector<Move> ret2;
-		for(vector<Move>::iterator curMove=ret.begin();curMove!=ret.end();curMove++)
-			if(!applyMove(*curMove).isCheck(color))
-				ret2.push_back(*curMove);
-		if(ret2.size() == 0){
-			cout<<"Checkmate! " << (color==1 ? "black" : "white") << " wins!\n";
-			exit(1);
-		}
-		
-		return ret2;
+		return ret;
 	}
 	bool isCheck(int c){
 		int original=color;
@@ -225,15 +219,6 @@ public:
 			cur = temp.getMoves(arr);
 			mobilityScore -= cur.size();
 			materialScore -= temp.piecePositionValue();
-			/*if (blackCheck)
-				continue;
-			for (vector<Move>::iterator thing = cur.begin(); thing != cur.end();
-					thing++) {
-				Piece piece2 = pieceAt((*thing).final);
-				if (piece2.type == king && piece2.color == -1) {
-					blackCheck = true;
-				}
-			}*/
 		}
 		for (vector<Piece>::iterator w = blackPieces.begin();
 				w != blackPieces.end(); w++) {
@@ -241,15 +226,6 @@ public:
 			cur = temp.getMoves(arr);
 			mobilityScore += cur.size();
 			materialScore += temp.piecePositionValue();
-			/*if (whiteCheck)
-				continue;
-			for (vector<Move>::iterator thing = cur.begin(); thing != cur.end();
-					thing++) {
-				Piece piece2 = pieceAt((*thing).final);
-				if (piece2.type == king && piece2.color == 1) {
-					whiteCheck = true;
-				}
-			}*/
 		}
 		
 		float total = materialScore + mobilityScore * 0.1;
@@ -302,7 +278,10 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 	if (depth % 2 == 1) { //MIN node
 		for (vector<Move>::iterator curMove = moves.begin();
 				curMove != moves.end(); curMove++) {
-			float temp = nodeScore(b.applyMove(*curMove), parentAlpha,
+			Board tempBoard=b.applyMove(*curMove);
+			if(tempBoard.isCheck(-tempBoard.color))
+				continue;
+			float temp = nodeScore(tempBoard, parentAlpha,
 					min(thisBeta, parentBeta), depth + 1, color, display);
 			thisBeta = min(temp, thisBeta);
 			if (parentAlpha >= thisBeta) {
@@ -319,7 +298,10 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 	if (depth % 2 == 0) { //MAX node
 		for (vector<Move>::iterator curMove = moves.begin();
 				curMove != moves.end(); curMove++) {
-			float temp = nodeScore(b.applyMove(*curMove),
+			Board tempBoard=b.applyMove(*curMove);
+			if(tempBoard.isCheck(-tempBoard.color))
+				continue;
+			float temp = nodeScore(tempBoard,
 					max(thisAlpha, parentAlpha), parentBeta, depth + 1, color,
 					display);
 			thisAlpha = max(temp, thisAlpha);
@@ -342,7 +324,10 @@ Move Board::optimalMove(bool display = false) {
 	Move bestMove = Move(Position(), Position());
 	for (vector<Move>::iterator curMove = moves.begin(); curMove != moves.end();
 			curMove++) {
-		int i = nodeScore(applyMove(*curMove), -INFY, +INFY, 1, color,
+		Board tempBoard=applyMove(*curMove);
+		if(tempBoard.isCheck(-tempBoard.color))
+			continue;
+		int i = nodeScore(tempBoard, -INFY, +INFY, 1, color,
 				display);
 		cout<<"Node score: "<<i<<" ";
 		curMove->display();

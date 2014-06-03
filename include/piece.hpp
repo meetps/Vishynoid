@@ -24,29 +24,29 @@ public:
 		return false;
 	}
 	float piecePositionValue(){
-		float total = 100*pieceValue;
+		float total = pieceValue;
 		if(color == -1)
 			switch (type) {
 			case empty:
 				total = 0;
 				break;
 			case pawn:
-				total += pawnPlace[pos.y][pos.x];
+				total += pawnPlace[pos.y][pos.x]/100;
 				break;
 			case rook:
-				total += rookPlace[pos.y][pos.x];
+				total += rookPlace[pos.y][pos.x]/100;
 				break;
 			case knight:
-				total += knightPlace[pos.y][pos.x];
+				total += knightPlace[pos.y][pos.x]/100;
 				break;
 			case king:
-				total += kingPlace[pos.y][pos.x];
+				total += kingPlace[pos.y][pos.x]/100;
 				break;
 			case queen:
-				total += queenPlace[pos.y][pos.x];
+				total += queenPlace[pos.y][pos.x]/100;
 				break;
 			case bishop:
-				total += bishopPlace[pos.y][pos.x];
+				total += bishopPlace[pos.y][pos.x]/100;
 				break;
 			}
 		else
@@ -55,25 +55,25 @@ public:
 				total = 0;
 				break;
 			case pawn:
-				total += pawnPlace[7-pos.y][7-pos.x];
+				total += pawnPlace[7-pos.y][7-pos.x]/100;
 				break;
 			case rook:
-				total += rookPlace[7-pos.y][7-pos.x];
+				total += rookPlace[7-pos.y][7-pos.x]/100;
 				break;
 			case knight:
-				total += knightPlace[7-pos.y][7-pos.x];
+				total += knightPlace[7-pos.y][7-pos.x]/100;
 				break;
 			case king:
-				total += kingPlace[7-pos.y][7-pos.x];
+				total += kingPlace[7-pos.y][7-pos.x]/100;
 				break;
 			case queen:
-				total += queenPlace[7-pos.y][7-pos.x];
+				total += queenPlace[7-pos.y][7-pos.x]/100;
 				break;
 			case bishop:
-				total += bishopPlace[7-pos.y][7-pos.x];
+				total += bishopPlace[7-pos.y][7-pos.x]/100;
 				break;
 			};
-		return total/100;
+		return total;
 	}	
 	Piece() {
 		pos = Position();
