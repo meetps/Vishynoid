@@ -151,11 +151,11 @@ public:
 				arr[i][j] = 0;
 		for (vector<Piece>::iterator w = whitePieces.begin();
 				w != whitePieces.end(); w++)
-			if (isValid(w->pos.x, w->pos.y))
+			if (isValid(w->pos.x, w->pos.y) && w->alive)
 				arr[(*w).pos.x][(*w).pos.y] = 1;
 		for (vector<Piece>::iterator b = blackPieces.begin();
 				b != blackPieces.end(); b++)
-			if (isValid(b->pos.x, b->pos.y))
+			if (isValid(b->pos.x, b->pos.y) && b->alive)
 				arr[(*b).pos.x][(*b).pos.y] = -1;
 
 		if (color == 1) {
@@ -185,7 +185,7 @@ public:
 		vector<Move> moves=getIntermediateMoves();
 		for(vector<Move>::iterator curMove=moves.begin(); curMove!= moves.end(); curMove++){
 			Piece temp = pieceAt(curMove->final);
-			if(temp.type == king && temp.color==1){
+			if(temp.type == king && temp.color==c){
 				color=original;
 				return true;
 			}
@@ -200,11 +200,10 @@ public:
 				if(!applyMove(*curMove).isCheck(color)) ret2.push_back(*curMove);
 			return ret2;
 	}
-	float getBoardValue(char POV) {
+	float getBoardValue(float POV) {
 		float materialScore = 0;
 		float mobilityScore = 0;
 		char arr[8][8];
-		bool whiteCheck = false, blackCheck = false;
 		for (char i = 0; i <= 7; i++)
 			for (char j = 0; j <= 7; j++)
 				arr[i][j] = 0;
@@ -221,21 +220,19 @@ public:
 				w != whitePieces.end(); w++) {
 			Piece temp = *w;
 			cur = temp.getMoves(arr);
-			mobilityScore -= cur.size();
-			materialScore -= temp.piecePositionValue();
+			mobilityScore += cur.size();
+			materialScore += temp.piecePositionValue();
 		}
 		for (vector<Piece>::iterator w = blackPieces.begin();
 				w != blackPieces.end(); w++) {
 			Piece temp = *w;
 			cur = temp.getMoves(arr);
-			mobilityScore += cur.size();
-			materialScore += temp.piecePositionValue();
+			mobilityScore -= cur.size();
+			materialScore -= temp.piecePositionValue();
 		}
 		
 		float total = materialScore + mobilityScore * 0.1;
-		if (POV == -1)
-			return total;
-		return -total;
+		return POV*total;
 	}
 
 	Piece pieceAt(const Position p) {
@@ -243,21 +240,20 @@ public:
 			return Piece();
 		for (vector<Piece>::iterator w = whitePieces.begin();
 				w != whitePieces.end(); w++)
-			if ((*w).pos == p)
+			if ((*w).pos == p && w->alive)
 				return *w;
 		for (vector<Piece>::iterator b = blackPieces.begin();
 				b != blackPieces.end(); b++)
-			if ((*b).pos == p)
+			if ((*b).pos == p && b->alive)
 				return *b;
 		return Piece();
 	}
 };
 float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 		char color, bool display = false) {
-	//if N is leaf: return score wrt black
+	//if N is leaf: return score wrt original POV
 	//N is MAX if depth (0 index) is even
 	//else MIN
-	//int thisValue = b.getBoardValue(color);
 	if (depth == recursionDepth)
 		return b.getBoardValue(color);
 	float thisAlpha = -INFY;
@@ -270,7 +266,7 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 	for (vector<Move>::iterator curMove = moves.begin(); curMove != moves.end();
 			curMove++)
 		curMove->value = b.applyMove(*curMove).getBoardValue(color);
-	sort(moves.begin(), moves.end());
+	sort(moves.begin(), moves.end()); //based on boardValues one step ahead
 
 	if (depth % 2 == 0) //MAX nodes want biggest first
 		reverse(moves.begin(), moves.end());
@@ -316,6 +312,10 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 }
 Move Board::optimalMove(bool display = false) {
 	vector<Move> moves = getMoves();
+	if(moves.size()==0){
+		cout<<"Checkmate! "<<(color==1?"black":"white")<<" wins!\n";
+		exit(0);
+	}
 	float bestScore = -INFY;
 	Move bestMove = Move(Position(), Position());
 	for (vector<Move>::iterator curMove = moves.begin(); curMove != moves.end();
