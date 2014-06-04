@@ -340,7 +340,7 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 }
 Move Board::optimalMove(bool display = false) {
 	vector<Move> moves = getMoves();
-	if(moves.size()==0){
+	if(moves.size()==0 || !hasKing(color)){
 		cout<<"Checkmate! "<<(color==1?"black":"white")<<" wins!\n";
 		exit(0);
 	}
