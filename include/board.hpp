@@ -229,7 +229,14 @@ public:
 		if(!hasKing(POV)) return -INFY;
 		float materialScore = 0;
 		float mobilityScore = 0;
+		float pawnScore = 0;
 		char arr[8][8];
+		int whiteFiles[8];
+		int blackFiles[8];
+		for(int i=0; i<8; i++){
+			whiteFiles[i]=0;
+			blackFiles[i]=0;
+		}
 		for (char i = 0; i <= 7; i++)
 			for (char j = 0; j <= 7; j++)
 				arr[i][j] = 0;
@@ -248,6 +255,9 @@ public:
 			cur = temp.getMoves(arr);
 			mobilityScore += cur.size();
 			materialScore += temp.piecePositionValue();
+			if(temp.type==pawn)
+					whiteFiles[temp.pos.x]++;
+			
 		}
 		for (vector<Piece>::iterator w = blackPieces.begin();
 				w != blackPieces.end(); w++) {
@@ -255,9 +265,28 @@ public:
 			cur = temp.getMoves(arr);
 			mobilityScore -= cur.size();
 			materialScore -= temp.piecePositionValue();
+			if(temp.type==pawn)
+				blackFiles[temp.pos.x]++;
 		}
-		
-		float total = materialScore + mobilityScore * 0.1;
+		for(int i=0; i<8; i++){
+			if(whiteFiles[i]>=2) pawnScore-=0.5*(whiteFiles[i]-1);
+			if(blackFiles[i]>=2) pawnScore+=0.5*(blackFiles[i]-1);
+			if(whiteFiles[i]>0){
+				if(i==0){
+					if(!whiteFiles[i+1]) pawnScore-=0.5*whiteFiles[i];
+					if(!blackFiles[i+1]) pawnScore+=0.5*blackFiles[i];
+				}
+				if(i==-7){
+					if(!whiteFiles[i-1]) pawnScore-=0.5*whiteFiles[i];
+					if(!blackFiles[i-1]) pawnScore+=0.5*blackFiles[i];
+				}
+				else{
+					if(!(whiteFiles[i-1] || whiteFiles[i+1])) pawnScore-=0.5*(whiteFiles[i]);
+					if(!(blackFiles[i-1] || blackFiles[i+1])) pawnScore+=0.5*(blackFiles[i]);
+				}
+			}
+		}	
+		float total = materialScore + mobilityScore * 0.1 + pawnScore;
 		return POV*total;
 	}
 
