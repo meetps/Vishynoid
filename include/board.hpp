@@ -27,23 +27,34 @@ public:
 			//p1 should now be at final, not initial; search in white
 			//w2.remove(p1);
 			//w2.push_back(Piece(m.final, 1, p1.type));
-			for (vector<Piece>::iterator it = w2.begin(); it != w2.end(); it++)
+			for (vector<Piece>::iterator it = w2.begin(); it != w2.end(); it++){
 				if (*it == p1)
 					it->pos = m.final;
+				if(it->pos.y== 7 && it->type == pawn){
+					it->type=queen;
+					it->pieceValue=queenValue;
+				}
+			}
+					
 
 			//set p2 to dead; search in black
 			for (vector<Piece>::iterator it = b2.begin(); it != b2.end(); it++)
 				if (*it == p2)
 					it->alive = false;
+			
 		}
 		if (c == -1) {
 			//p1 should now be at final, not initial; search in black
 			//b2.remove(p1);
 			//b2.push_back(Piece(m.final, -1, p1.type));
-			for (vector<Piece>::iterator it = b2.begin(); it != b2.end(); it++)
+			for (vector<Piece>::iterator it = b2.begin(); it != b2.end(); it++){
 				if (*it == p1)
 					it->pos = m.final;
-
+				if(it->pos.y== 0 && it->type == pawn){
+					it->type=queen;
+					it->pieceValue=queenValue;
+				}
+			}
 			//set p2 to dead; search in white
 			for (vector<Piece>::iterator it = w2.begin(); it != w2.end(); it++)
 				if (*it == p2)
@@ -194,11 +205,12 @@ public:
 		return false;
 	}
 	vector<Move> getMoves(){
-			vector<Move> ret=getIntermediateMoves();
+			/*vector<Move> ret=getIntermediateMoves();
 			vector<Move> ret2;
 			for(vector<Move>::iterator curMove=ret.begin(); curMove!=ret.end(); curMove++)
 				if(!applyMove(*curMove).isCheck(color)) ret2.push_back(*curMove);
-			return ret2;
+			return ret2;*/
+			return getIntermediateMoves();
 	}
 	float getBoardValue(float POV) {
 		float materialScore = 0;
