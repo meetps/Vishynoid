@@ -9,7 +9,6 @@ using namespace std;
 enum pieceType {
 	empty, pawn, rook, bishop, knight, queen, king
 };
-
 class Piece {
 public:
 	pieceType type;
@@ -17,9 +16,9 @@ public:
 	Position pos;
 	char color;
 	bool alive;
-	bool operator ==(Piece p2) {
+	bool operator ==(const Piece& p2) {
 		if (type == p2.type && pos == p2.pos && color == p2.color
-				&& alive == p2.alive)
+				&& alive == p2.alive && alive)
 			return true;
 		return false;
 	}
@@ -29,7 +28,7 @@ public:
 		if(color == -1)
 			switch (type) {
 			case empty:
-				total = 0;
+				return 0;
 				break;
 			case pawn:
 				total += pawnPlace[pos.y][pos.x]/100;
@@ -53,7 +52,7 @@ public:
 		else
 			switch (type) {
 			case empty:
-				total = 0;
+				return 0;
 				break;
 			case pawn:
 				total += pawnPlace[7-pos.y][7-pos.x]/100;
@@ -341,6 +340,7 @@ public:
 		vector<Move> ret;
 		if (!alive)
 			return ret;
+			
 		char x = pos.x;
 		char y = pos.y;
 		char change = color == 1 ? 1 : -1; //define what "ahead" is
@@ -359,7 +359,6 @@ public:
 			ret.push_back(Move(pos, Position(x - 1, y + change)));
 		return ret;
 	}
-
 	vector<Move> rookMoves(const char myBoard[8][8]) {
 		vector<Move> ret;
 		if (!alive)
@@ -413,7 +412,6 @@ public:
 		}
 		return ret;
 	}
-
 	vector<Move> getMoves(const char myBoard[8][8]) {
 		//myBoard=board;
 		vector<Move> ret;

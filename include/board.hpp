@@ -11,14 +11,11 @@ public:
 	vector<Piece> whitePieces;
 	vector<Piece> blackPieces;
 	char color;
-	Move bestMove;
 	Move optimalMove(bool);
 	Board(vector<Piece> white, vector<Piece> black, char c) {
-		//cout<<"Making a board\n";
 		whitePieces = white;
 		blackPieces = black;
 		color = c;
-		//bestMove=optimalMove();
 	}
 	Board applyMove(Move m) {
 		Piece p1 = pieceAt(m.initial);
@@ -58,10 +55,10 @@ public:
 	void display() {
 		cout << (color == 1 ? "white" : "black") << " to play!\n";
 		
-		string wtf[8][8];
+		string disp[8][8];
 		for (char i = 0; i < 8; i++) {
 			for (char j = 0; j < 8; j++) {
-				wtf[i][j] = "\xe2\x98\x90";
+				disp[i][j] = "\xe2\x98\x90";
 			}
 		}
 		for (vector<Piece>::iterator w = whitePieces.begin();
@@ -72,22 +69,22 @@ public:
 			switch (temp.type) 
 				{
 			case pawn:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x99";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x99";
 				break;
 			case knight:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x98";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x98";
 				break;
 			case rook:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x96";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x96";
 				break;
 			case bishop:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x97";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x97";
 				break;
 			case queen:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x95";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x95";
 				break;
 			case king:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x94";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x94";
 				break;
 				}
 			}
@@ -101,22 +98,22 @@ public:
 			switch (temp.type) 
 					{
 			case pawn:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x9f";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x9f";
 				break;
 			case knight:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x9e";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x9e";
 				break;
 			case rook:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x9c";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x9c";
 				break;
 			case bishop:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x9d";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x9d";
 				break;
 			case queen:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x9b";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x9b";
 				break;
 			case king:
-				wtf[temp.pos.x][temp.pos.y] = "\xe2\x99\x9a";
+				disp[temp.pos.x][temp.pos.y] = "\xe2\x99\x9a";
 				break;
 					}
 			}
@@ -128,7 +125,7 @@ public:
 
 		{
 			for (char i = 0; i < 8; i++) {
-				cout << wtf[i][j] << " ";
+				cout << disp[i][j] << " ";
 			}
 			
 			cout << "|"<<(int)j;
@@ -145,7 +142,7 @@ public:
 		cout << "\n";
 	}
 
-	vector<Move> getMoves() {
+	vector<Move> getIntermediateMoves() {
 		vector<Move> ret;
 
 		char arr[8][8];
@@ -185,7 +182,7 @@ public:
 	bool isCheck(int c){
 		int original=color;
 		color=-c;
-		vector<Move> moves=getMoves();
+		vector<Move> moves=getIntermediateMoves();
 		for(vector<Move>::iterator curMove=moves.begin(); curMove!= moves.end(); curMove++){
 			Piece temp = pieceAt(curMove->final);
 			if(temp.type == king && temp.color==1){
@@ -195,6 +192,13 @@ public:
 		}
 		color=original;
 		return false;
+	}
+	vector<Move> getMoves(){
+			vector<Move> ret=getIntermediateMoves();
+			vector<Move> ret2;
+			for(vector<Move>::iterator curMove=ret.begin(); curMove!=ret.end(); curMove++)
+				if(!applyMove(*curMove).isCheck(color)) ret2.push_back(*curMove);
+			return ret2;
 	}
 	float getBoardValue(char POV) {
 		float materialScore = 0;
@@ -275,8 +279,6 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 		for (vector<Move>::iterator curMove = moves.begin();
 				curMove != moves.end(); curMove++) {
 			Board tempBoard=b.applyMove(*curMove);
-			if(tempBoard.isCheck(-tempBoard.color))
-				continue;
 			float temp = nodeScore(tempBoard, parentAlpha,
 					min(thisBeta, parentBeta), depth + 1, color, display);
 			thisBeta = min(temp, thisBeta);
@@ -293,10 +295,8 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 	}
 	if (depth % 2 == 0) { //MAX node
 		for (vector<Move>::iterator curMove = moves.begin();
-				curMove != moves.end(); curMove++) {
+				curMove != moves.end(); curMove++){	
 			Board tempBoard=b.applyMove(*curMove);
-			if(tempBoard.isCheck(-tempBoard.color))
-				continue;
 			float temp = nodeScore(tempBoard,
 					max(thisAlpha, parentAlpha), parentBeta, depth + 1, color,
 					display);
@@ -321,8 +321,6 @@ Move Board::optimalMove(bool display = false) {
 	for (vector<Move>::iterator curMove = moves.begin(); curMove != moves.end();
 			curMove++) {
 		Board tempBoard=applyMove(*curMove);
-		if(tempBoard.isCheck(-tempBoard.color))
-			continue;
 		float i = nodeScore(tempBoard, -INFY, +INFY, 1, color,
 				display);
 		cout<<"Node score: "<<i<<" ";

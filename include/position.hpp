@@ -32,28 +32,4 @@ public:
 bool isValid(int x, int y) {
 	return (x >= 0 && x <= 7 && y >= 0 && y <= 7);
 }
-bool areDiagonal(Position p1, Position p2) {
-	if (std::abs(p1.x - p2.x) == std::abs(p1.y - p2.y))
-
-		return true;
-
-	return false;
-}
-
-bool areVertical(Position p1, Position p2) {
-	if (std::abs(p1.y - p2.y) == 0)
-
-		return true;
-
-	return false;
-}
-
-bool areHorizontal(Position p1, Position p2) {
-	if (std::abs(p1.x - p2.x) == 0)
-
-		return true;
-
-	return false;
-}
-
 #endif
