@@ -280,8 +280,8 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 	//if N is leaf: return score wrt original POV
 	//N is MAX if depth (0 index) is even
 	//else MIN
-	if(!b.hasKing(color)) return -INFY;
-	if(!b.hasKing(-color)) return INFY;
+	if(!b.hasKing(color)) return -2*INFY;
+	if(!b.hasKing(-color)) return 2*INFY;
 	if (depth == recursionDepth)
 		return b.getBoardValue(color);
 	float thisAlpha = -INFY;
@@ -344,11 +344,13 @@ Move Board::optimalMove(bool display = false) {
 		cout<<"Checkmate! "<<(color==1?"black":"white")<<" wins!\n";
 		exit(0);
 	}
+	bool checkMate=true;
 	float bestScore = -INFY;
 	Move bestMove = Move(Position(), Position());
 	for (vector<Move>::iterator curMove = moves.begin(); curMove != moves.end();
 			curMove++) {
 		Board tempBoard=applyMove(*curMove);
+		if(tempBoard.hasKing(color)) checkMate=false;
 		float i = nodeScore(tempBoard, -INFY, +INFY, 1, color,
 				display);
 		if(display) cout<<"Node score: "<<i<<" ";
@@ -357,6 +359,10 @@ Move Board::optimalMove(bool display = false) {
 			bestScore = i;
 			bestMove = *curMove;
 		}
+	}
+	if(checkMate){
+			cout<<"Checkmate! "<<((color==1)?"white":"black")<<" wins!\n";
+			exit(1);
 	}
 	return bestMove;
 }
