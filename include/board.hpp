@@ -17,6 +17,19 @@ public:
 		blackPieces = black;
 		color = c;
 	}
+	bool hasKing(char POV){
+			if(POV==1){
+			for(vector<Piece>::iterator p=whitePieces.begin(); p!=whitePieces.end(); p++){
+				if(p->type==king && !p->alive) return false;
+			 return true;
+			}
+		 }
+			
+			for(vector<Piece>::iterator p=blackPieces.begin();p!=blackPieces.end();p++){
+				if(p->type==king && !p->alive) return false;
+			 return true;
+			}
+	}
 	Board applyMove(Move m) {
 		Piece p1 = pieceAt(m.initial);
 		char c = p1.color;
@@ -213,6 +226,7 @@ public:
 			return getIntermediateMoves();
 	}
 	float getBoardValue(float POV) {
+		if(!hasKing(POV)) return -INFY;
 		float materialScore = 0;
 		float mobilityScore = 0;
 		char arr[8][8];
@@ -266,6 +280,8 @@ float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 	//if N is leaf: return score wrt original POV
 	//N is MAX if depth (0 index) is even
 	//else MIN
+	if(!b.hasKing(color)) return -INFY;
+	if(!b.hasKing(-color)) return INFY;
 	if (depth == recursionDepth)
 		return b.getBoardValue(color);
 	float thisAlpha = -INFY;
@@ -335,8 +351,8 @@ Move Board::optimalMove(bool display = false) {
 		Board tempBoard=applyMove(*curMove);
 		float i = nodeScore(tempBoard, -INFY, +INFY, 1, color,
 				display);
-		cout<<"Node score: "<<i<<" ";
-		curMove->display();
+		if(display) cout<<"Node score: "<<i<<" ";
+		if(display) curMove->display();
 		if (i > bestScore) {
 			bestScore = i;
 			bestMove = *curMove;
