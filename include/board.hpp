@@ -269,24 +269,25 @@ public:
 				blackFiles[temp.pos.x]++;
 		}
 		for(int i=0; i<8; i++){
-			if(whiteFiles[i]>=2) pawnScore-=0.5*(whiteFiles[i]-1);
-			if(blackFiles[i]>=2) pawnScore+=0.5*(blackFiles[i]-1);
+			if(whiteFiles[i]>=2) pawnScore-=(whiteFiles[i]-1);
+			if(blackFiles[i]>=2) pawnScore+=(blackFiles[i]-1);
 			if(whiteFiles[i]>0){
 				if(i==0){
-					if(!whiteFiles[i+1]) pawnScore-=0.5*whiteFiles[i];
-					if(!blackFiles[i+1]) pawnScore+=0.5*blackFiles[i];
+					if(!whiteFiles[i+1]) pawnScore-=whiteFiles[i];
+					if(!blackFiles[i+1]) pawnScore+=blackFiles[i];
 				}
 				if(i==-7){
-					if(!whiteFiles[i-1]) pawnScore-=0.5*whiteFiles[i];
-					if(!blackFiles[i-1]) pawnScore+=0.5*blackFiles[i];
+					if(!whiteFiles[i-1]) pawnScore-=whiteFiles[i];
+					if(!blackFiles[i-1]) pawnScore+=blackFiles[i];
 				}
 				else{
-					if(!(whiteFiles[i-1] || whiteFiles[i+1])) pawnScore-=0.5*(whiteFiles[i]);
-					if(!(blackFiles[i-1] || blackFiles[i+1])) pawnScore+=0.5*(blackFiles[i]);
+					if(!(whiteFiles[i-1] || whiteFiles[i+1])) pawnScore-=(whiteFiles[i]);
+					if(!(blackFiles[i-1] || blackFiles[i+1])) pawnScore+=(blackFiles[i]);
 				}
 			}
 		}	
-		float total = materialScore + mobilityScore * 0.1 + pawnScore;
+		float total = materialScore + mobilityScore;
+		total+= 0.33 * pawnScore;
 		return POV*total;
 	}
 
