@@ -286,7 +286,7 @@ public:
 				}
 			}
 		}	
-		float total = materialScore + mobilityScore;
+		float total = materialScore + mobilityScore*.1;
 		total+= 0.33 * pawnScore;
 		return POV*total;
 	}
