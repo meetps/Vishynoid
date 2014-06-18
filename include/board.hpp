@@ -377,7 +377,7 @@ public:
 		//extract from filename2
 		//find optimalMove, execute it, write everything back
 		
-		//imageProcessing(filename2); **********************************************************************
+		//imageProcessing(filename2); **********************************************************************		
 		Board b=readBoard(filename1);
 		b.applyMove(b.extract(filename2));
 		Move m=b.optimalMove(false);
