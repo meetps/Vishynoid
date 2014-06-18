@@ -1,11 +1,12 @@
-#ifndef board
-#define board
+#ifndef BOARD
+#define BOARD
 #include<stdlib.h>
 #include<vector>
 #include<algorithm>
 #include "position.hpp"
 #include "move.hpp"
 #include "piece.hpp"
+#include<fstream>
 class Board {
 public:
 	vector<Piece> whitePieces;
@@ -16,6 +17,43 @@ public:
 		whitePieces = white;
 		blackPieces = black;
 		color = c;
+	}
+	void writeBoard(char* filename){
+			ofstream file(filename);
+			file<<color<<endl;
+			int myBoard[8][8];
+			for(int i=0; i<8; i++)
+				for(int j=0; j<8; j++)
+					myBoard[i][j]=0;
+			for(vector<Piece>::iterator w=whitePieces.begin(); w!=whitePieces.end(); w++)
+				myBoard[w->pos.x][w->pos.y]=(w->type)*(w->alive?1:0);
+			for(vector<Piece>::iterator b=blackPieces.begin(); b!=blackPieces.end(); b++)
+				myBoard[b->pos.x][b->pos.y]=-1*(b->type)*(b->alive?1:0);
+			for(int i=0; i<8; i++){
+				for(int j=0; j<8; j++)
+					file<<myBoard[i][j];
+				file<<endl;
+			}
+	}
+	static Board readBoard(char* filename){
+			ifstream file(filename);
+			int myBoard[8][8];
+			for(int i=0; i<8; i++)
+				for(int j=0; j<8; j++)
+					myBoard[i][j]=0;
+			int color;
+			file>>color;
+			vector<Piece> whitePieces;
+			vector<Piece> blackPieces;
+			for(int i=0; i<8; i++){
+				for(int j=0; j<8; j++){
+					file>>myBoard[i][j];
+					int temp=myBoard[i][j];
+					if(temp==0) continue;
+					(temp>0?whitePieces:blackPieces).push_back(Piece(Position(i,j), (temp>0?1:-1), (pieceType)abs(temp)));
+				}
+			}
+			return Board(whitePieces,blackPieces,color);
 	}
 	bool hasKing(char POV){
 			if(POV==1){
@@ -304,6 +342,49 @@ public:
 				return *b;
 		return Piece();
 	}
+	Move extract(char* filename){
+		ifstream file(filename);
+		char arr[8][8],myBoard[8][8];
+		for (char i = 0; i <= 7; i++)
+			for (char j = 0; j <= 7; j++){
+				arr[i][j] = 0;
+				myBoard[i][j] =0;
+			}
+		for (vector<Piece>::iterator w = whitePieces.begin();
+				w != whitePieces.end(); w++)
+			if (w->alive)
+				arr[(*w).pos.x][(*w).pos.y] = 1;
+		for (vector<Piece>::iterator b = blackPieces.begin();
+				b != blackPieces.end(); b++)
+			if (b->alive)
+				arr[(*b).pos.x][(*b).pos.y] = -1;
+		Position p1,p2;
+		for(int i=0; i<8; i++)
+			for(int j=0; j<8; j++){
+				file>>myBoard[i][j];
+				int temp=myBoard[i][j];
+				if(arr[i][j]==temp) continue;
+				if(arr[i][j]!=temp && temp!=0)
+					p2=Position(i,j);
+				if(arr[i][j]!=0 && temp==0)
+					p1=Position(i,j);
+			}
+		return Move(p1,p2);
+	}
+	static Move doEverything(char* filename1, char* filename2){
+		//IP write to filename2
+		//readBoard from filename1
+		//extract from filename2
+		//find optimalMove, execute it, write everything back
+		
+		//imageProcessing(filename2); **********************************************************************
+		Board b=readBoard(filename1);
+		b.applyMove(b.extract(filename2));
+		Move m=b.optimalMove(false);
+		b.applyMove(m);
+		b.writeBoard(filename1);
+		return m;
+	}
 };
 float nodeScore(Board b, float parentAlpha, float parentBeta, char depth,
 		char color, bool display = false) {
@@ -396,5 +477,4 @@ Move Board::optimalMove(bool display = false) {
 	}
 	return bestMove;
 }
-
 #endif

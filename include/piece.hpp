@@ -443,4 +443,10 @@ public:
 		return ret;
 	}
 };
+
+	int sgn(int t){
+		if(t>0) return 1;
+		if(t<0) return -1;
+		return 0;
+	}
 #endif
