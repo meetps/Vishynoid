@@ -102,6 +102,6 @@ void test3(int dummy=0){
 	b.display();
 }
 int main(){
-	test2(100);
+	test1(100);
 	return 0;
 }

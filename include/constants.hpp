@@ -7,7 +7,7 @@ int bishopValue=3;
 int queenValue=9;
 int kingValue=200;
 int INFY=10000;
-int recursionDepth=4;
+int recursionDepth=3;
 float kingPlace[8][8]={{-30,-40,-40,-50,-50,-40,-40,-30},
 {-30,-40,-40,-50,-50,-40,-40,-30},
 {-30,-40,-40,-50,-50,-40,-40,-30},
